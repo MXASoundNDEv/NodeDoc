@@ -1,123 +1,257 @@
 <!DOCTYPE html>
-    <html>
-      <button onclick="history.back()" id="BACKBUTTON" title="Go to top">Back</button>
-      <link rel="stylesheet" href="../css/default.css" />
-    <head>
-        <meta charset="UTF-8">
-        <title>OS</title>
-        <style>
-/* From extension vscode.github */
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="nodejs.org:node-version" content="v16.14.2">
+  <title>OS | Node.js v16.14.2 Documentation</title>
+  <link rel="stylesheet" href="../css/css.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/hljs.css">
+  <link rel="canonical" href="https://nodejs.org/api/os.html">
+</head>
+<body class="alt apidoc" id="api-section-os">
+  <div id="content" class="clearfix">
+    <div id="column2" class="interior">
+      <div id="intro" class="interior">
+        <a href="/" title="Go back to the home page">
+          Node.js
+        </a>
+      </div>
+      <ul>
+<li><a href="documentation.html" class="nav-documentation">About this documentation</a></li>
+<li><a href="synopsis.html" class="nav-synopsis">Usage and example</a></li>
+</ul>
+<hr class="line">
+<ul>
+<li><a href="assert.html" class="nav-assert">Assertion testing</a></li>
+<li><a href="async_context.html" class="nav-async_context">Asynchronous context tracking</a></li>
+<li><a href="async_hooks.html" class="nav-async_hooks">Async hooks</a></li>
+<li><a href="buffer.html" class="nav-buffer">Buffer</a></li>
+<li><a href="addons.html" class="nav-addons">C++ addons</a></li>
+<li><a href="n-api.html" class="nav-n-api">C/C++ addons with Node-API</a></li>
+<li><a href="embedding.html" class="nav-embedding">C++ embedder API</a></li>
+<li><a href="child_process.html" class="nav-child_process">Child processes</a></li>
+<li><a href="cluster.html" class="nav-cluster">Cluster</a></li>
+<li><a href="cli.html" class="nav-cli">Command-line options</a></li>
+<li><a href="console.html" class="nav-console">Console</a></li>
+<li><a href="corepack.html" class="nav-corepack">Corepack</a></li>
+<li><a href="crypto.html" class="nav-crypto">Crypto</a></li>
+<li><a href="debugger.html" class="nav-debugger">Debugger</a></li>
+<li><a href="deprecations.html" class="nav-deprecations">Deprecated APIs</a></li>
+<li><a href="diagnostics_channel.html" class="nav-diagnostics_channel">Diagnostics Channel</a></li>
+<li><a href="dns.html" class="nav-dns">DNS</a></li>
+<li><a href="domain.html" class="nav-domain">Domain</a></li>
+<li><a href="errors.html" class="nav-errors">Errors</a></li>
+<li><a href="events.html" class="nav-events">Events</a></li>
+<li><a href="fs.html" class="nav-fs">File system</a></li>
+<li><a href="globals.html" class="nav-globals">Globals</a></li>
+<li><a href="http.html" class="nav-http">HTTP</a></li>
+<li><a href="http2.html" class="nav-http2">HTTP/2</a></li>
+<li><a href="https.html" class="nav-https">HTTPS</a></li>
+<li><a href="inspector.html" class="nav-inspector">Inspector</a></li>
+<li><a href="intl.html" class="nav-intl">Internationalization</a></li>
+<li><a href="modules.html" class="nav-modules">Modules: CommonJS modules</a></li>
+<li><a href="esm.html" class="nav-esm">Modules: ECMAScript modules</a></li>
+<li><a href="module.html" class="nav-module">Modules: <code>module</code> API</a></li>
+<li><a href="packages.html" class="nav-packages">Modules: Packages</a></li>
+<li><a href="net.html" class="nav-net">Net</a></li>
+<li><a href="os.html" class="nav-os active">OS</a></li>
+<li><a href="path.html" class="nav-path">Path</a></li>
+<li><a href="perf_hooks.html" class="nav-perf_hooks">Performance hooks</a></li>
+<li><a href="policy.html" class="nav-policy">Policies</a></li>
+<li><a href="process.html" class="nav-process">Process</a></li>
+<li><a href="punycode.html" class="nav-punycode">Punycode</a></li>
+<li><a href="querystring.html" class="nav-querystring">Query strings</a></li>
+<li><a href="readline.html" class="nav-readline">Readline</a></li>
+<li><a href="repl.html" class="nav-repl">REPL</a></li>
+<li><a href="report.html" class="nav-report">Report</a></li>
+<li><a href="stream.html" class="nav-stream">Stream</a></li>
+<li><a href="string_decoder.html" class="nav-string_decoder">String decoder</a></li>
+<li><a href="timers.html" class="nav-timers">Timers</a></li>
+<li><a href="tls.html" class="nav-tls">TLS/SSL</a></li>
+<li><a href="tracing.html" class="nav-tracing">Trace events</a></li>
+<li><a href="tty.html" class="nav-tty">TTY</a></li>
+<li><a href="dgram.html" class="nav-dgram">UDP/datagram</a></li>
+<li><a href="url.html" class="nav-url">URL</a></li>
+<li><a href="util.html" class="nav-util">Utilities</a></li>
+<li><a href="v8.html" class="nav-v8">V8</a></li>
+<li><a href="vm.html" class="nav-vm">VM</a></li>
+<li><a href="wasi.html" class="nav-wasi">WASI</a></li>
+<li><a href="webcrypto.html" class="nav-webcrypto">Web Crypto API</a></li>
+<li><a href="webstreams.html" class="nav-webstreams">Web Streams API</a></li>
+<li><a href="worker_threads.html" class="nav-worker_threads">Worker threads</a></li>
+<li><a href="zlib.html" class="nav-zlib">Zlib</a></li>
+</ul>
+<hr class="line">
+<ul>
 
-.vscode-dark img[src$=\#gh-light-mode-only],
-.vscode-light img[src$=\#gh-dark-mode-only] {
-	display: none;
-}
+</ul>
+    </div>
 
-/* From extension vscode.markdown-math */
-@font-face{font-family:KaTeX_AMS;font-style:normal;font-weight:400;src:url(fonts/KaTeX_AMS-Regular.woff2) format("woff2"),url(fonts/KaTeX_AMS-Regular.woff) format("woff"),url(fonts/KaTeX_AMS-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Caligraphic-Bold.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Bold.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Caligraphic-Regular.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Regular.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Fraktur-Bold.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Bold.woff) format("woff"),url(fonts/KaTeX_Fraktur-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Fraktur-Regular.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Regular.woff) format("woff"),url(fonts/KaTeX_Fraktur-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Main-Bold.woff2) format("woff2"),url(fonts/KaTeX_Main-Bold.woff) format("woff"),url(fonts/KaTeX_Main-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Main-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Main-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Main-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Main-Italic.woff2) format("woff2"),url(fonts/KaTeX_Main-Italic.woff) format("woff"),url(fonts/KaTeX_Main-Italic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Main-Regular.woff2) format("woff2"),url(fonts/KaTeX_Main-Regular.woff) format("woff"),url(fonts/KaTeX_Main-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Math-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Math-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Math-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Math-Italic.woff2) format("woff2"),url(fonts/KaTeX_Math-Italic.woff) format("woff"),url(fonts/KaTeX_Math-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700;src:url(fonts/KaTeX_SansSerif-Bold.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Bold.woff) format("woff"),url(fonts/KaTeX_SansSerif-Bold.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400;src:url(fonts/KaTeX_SansSerif-Italic.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Italic.woff) format("woff"),url(fonts/KaTeX_SansSerif-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400;src:url(fonts/KaTeX_SansSerif-Regular.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Regular.woff) format("woff"),url(fonts/KaTeX_SansSerif-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Script;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Script-Regular.woff2) format("woff2"),url(fonts/KaTeX_Script-Regular.woff) format("woff"),url(fonts/KaTeX_Script-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size1;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size1-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size1-Regular.woff) format("woff"),url(fonts/KaTeX_Size1-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size2;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size2-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size2-Regular.woff) format("woff"),url(fonts/KaTeX_Size2-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size3;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size3-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size3-Regular.woff) format("woff"),url(fonts/KaTeX_Size3-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size4;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size4-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size4-Regular.woff) format("woff"),url(fonts/KaTeX_Size4-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Typewriter;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Typewriter-Regular.woff2) format("woff2"),url(fonts/KaTeX_Typewriter-Regular.woff) format("woff"),url(fonts/KaTeX_Typewriter-Regular.ttf) format("truetype")}.katex{text-rendering:auto;font:normal 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;text-indent:0}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.13.24"}.katex .katex-mathml{clip:rect(1px,1px,1px,1px);border:0;height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .base,.katex .strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .hbox{width:100%}.katex .hbox,.katex .thinbox{display:inline-flex;flex-direction:row}.katex .thinbox{max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline,.katex .hline,.katex .mfrac .frac-line,.katex .overline .overline-line,.katex .rule,.katex .underline .underline-line{min-height:1px}.katex .mspace{display:inline-block}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.inner,.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .clap>.fix,.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .clap>.inner,.katex .rlap>.inner{left:0}.katex .clap>.inner>span{margin-left:-50%;margin-right:50%}.katex .rule{border:0 solid;display:inline-block;position:relative}.katex .hline,.katex .overline .overline-line,.katex .underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.83333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.16666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.66666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.45666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .sizing.reset-size2.size11{font-size:4.14666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.85714286em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.46857143em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:2.96285714em}.katex .fontsize-ensurer.reset-size3.size11,.katex .sizing.reset-size3.size11{font-size:3.55428571em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.66666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.77777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.88888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.30444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .sizing.reset-size5.size11{font-size:2.76444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.58333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.66666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72833333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .sizing.reset-size7.size11{font-size:2.07333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.41666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.48611111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.55555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.44027778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .sizing.reset-size8.size11{font-size:1.72777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.28935185em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.34722222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.40509259em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.46296296em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.52083333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.5787037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20023148em}.katex .fontsize-ensurer.reset-size9.size11,.katex .sizing.reset-size9.size11{font-size:1.43981481em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.24108004em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.28929605em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.33751205em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.38572806em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.43394407em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48216008em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57859209em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69431051em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.83317261em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .sizing.reset-size10.size11{font-size:1.19961427em}.katex .fontsize-ensurer.reset-size11.size1,.katex .sizing.reset-size11.size1{font-size:.20096463em}.katex .fontsize-ensurer.reset-size11.size2,.katex .sizing.reset-size11.size2{font-size:.24115756em}.katex .fontsize-ensurer.reset-size11.size3,.katex .sizing.reset-size11.size3{font-size:.28135048em}.katex .fontsize-ensurer.reset-size11.size4,.katex .sizing.reset-size11.size4{font-size:.32154341em}.katex .fontsize-ensurer.reset-size11.size5,.katex .sizing.reset-size11.size5{font-size:.36173633em}.katex .fontsize-ensurer.reset-size11.size6,.katex .sizing.reset-size11.size6{font-size:.40192926em}.katex .fontsize-ensurer.reset-size11.size7,.katex .sizing.reset-size11.size7{font-size:.48231511em}.katex .fontsize-ensurer.reset-size11.size8,.katex .sizing.reset-size11.size8{font-size:.57877814em}.katex .fontsize-ensurer.reset-size11.size9,.katex .sizing.reset-size11.size9{font-size:.69453376em}.katex .fontsize-ensurer.reset-size11.size10,.katex .sizing.reset-size11.size10{font-size:.83360129em}.katex .fontsize-ensurer.reset-size11.size11,.katex .sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .accent .accent-body{position:relative}.katex .accent .accent-body:not(.accent-full){width:0}.katex .overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
+    <div id="column1" data-id="os" class="interior">
+      <header>
+        <div class="header-container">
+          <h1>Node.js v16.14.2 documentation</h1>
+          <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle dark mode/light mode" aria-label="Toggle dark mode/light mode" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" height="24" width="24">
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path d="M11.1 12.08c-2.33-4.51-.5-8.48.53-10.07C6.27 2.2 1.98 6.59 1.98 12c0 .14.02.28.02.42.62-.27 1.29-.42 2-.42 1.66 0 3.18.83 4.1 2.15A4.01 4.01 0 0111 18c0 1.52-.87 2.83-2.12 3.51.98.32 2.03.5 3.11.5 3.5 0 6.58-1.8 8.37-4.52-2.36.23-6.98-.97-9.26-5.41z"/>
+              <path d="M7 16h-.18C6.4 14.84 5.3 14 4 14c-1.66 0-3 1.34-3 3s1.34 3 3 3h3c1.1 0 2-.9 2-2s-.9-2-2-2z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" height="24" width="24">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/>
+            </svg>
+          </button>
+        </div>
+        <div id="gtoc">
+          <ul>
+            <li>
+              <a href="index.html">Index</a>
+            </li>
+            <li>
+              <a href="all.html">View on single page</a>
+            </li>
+            <li>
+              <a href="os.json">View as JSON</a>
+            </li>
+            
+    
+      
+      <ol class="version-picker"><li><a href="https://nodejs.org/docs/latest-v17.x/api/os.html">17.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v16.x/api/os.html">16.x <b>LTS</b></a></li>
+<li><a href="https://nodejs.org/docs/latest-v15.x/api/os.html">15.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v14.x/api/os.html">14.x <b>LTS</b></a></li>
+<li><a href="https://nodejs.org/docs/latest-v13.x/api/os.html">13.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v12.x/api/os.html">12.x <b>LTS</b></a></li>
+<li><a href="https://nodejs.org/docs/latest-v11.x/api/os.html">11.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v10.x/api/os.html">10.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v9.x/api/os.html">9.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v8.x/api/os.html">8.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v7.x/api/os.html">7.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v6.x/api/os.html">6.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v5.x/api/os.html">5.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v4.x/api/os.html">4.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v0.12.x/api/os.html">0.12.x</a></li>
+<li><a href="https://nodejs.org/docs/latest-v0.10.x/api/os.html">0.10.x</a></li></ol>
+    </li>
+  
+            <!-- <a href="https://github.com/nodejs/node/edit/master/doc/api/os.md">-->
+          </ul>
+        </div>
+        <hr>
+      </header>
 
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+      <details id="toc" open><summary>Table of contents</summary><ul>
+<li><span class="stability_2"><a href="#os">OS</a></span>
+<ul>
+<li><a href="#oseol"><code>os.EOL</code></a></li>
+<li><a href="#osarch"><code>os.arch()</code></a></li>
+<li><a href="#osconstants"><code>os.constants</code></a></li>
+<li><a href="#oscpus"><code>os.cpus()</code></a></li>
+<li><a href="#osdevnull"><code>os.devNull</code></a></li>
+<li><a href="#osendianness"><code>os.endianness()</code></a></li>
+<li><a href="#osfreemem"><code>os.freemem()</code></a></li>
+<li><a href="#osgetprioritypid"><code>os.getPriority([pid])</code></a></li>
+<li><a href="#oshomedir"><code>os.homedir()</code></a></li>
+<li><a href="#oshostname"><code>os.hostname()</code></a></li>
+<li><a href="#osloadavg"><code>os.loadavg()</code></a></li>
+<li><a href="#osnetworkinterfaces"><code>os.networkInterfaces()</code></a></li>
+<li><a href="#osplatform"><code>os.platform()</code></a></li>
+<li><a href="#osrelease"><code>os.release()</code></a></li>
+<li><a href="#ossetprioritypid-priority"><code>os.setPriority([pid, ]priority)</code></a></li>
+<li><a href="#ostmpdir"><code>os.tmpdir()</code></a></li>
+<li><a href="#ostotalmem"><code>os.totalmem()</code></a></li>
+<li><a href="#ostype"><code>os.type()</code></a></li>
+<li><a href="#osuptime"><code>os.uptime()</code></a></li>
+<li><a href="#osuserinfooptions"><code>os.userInfo([options])</code></a></li>
+<li><a href="#osversion"><code>os.version()</code></a></li>
+<li><a href="#os-constants">OS constants</a>
+<ul>
+<li><a href="#signal-constants">Signal constants</a></li>
+<li><a href="#error-constants">Error constants</a>
+<ul>
+<li><a href="#posix-error-constants">POSIX error constants</a></li>
+<li><a href="#windows-specific-error-constants">Windows-specific error constants</a></li>
+</ul>
+</li>
+<li><a href="#dlopen-constants">dlopen constants</a></li>
+<li><a href="#priority-constants">Priority constants</a></li>
+<li><a href="#libuv-constants">libuv constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></details>
 
-.katex-error {
-	color: var(--vscode-editorError-foreground);
-}
+      <div id="apicontent">
+        <h2>OS<span><a class="mark" href="#os" id="os">#</a></span><a aria-hidden="true" class="legacy" id="os_os"></a></h2>
 
-</style>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
-<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-<style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        </style>
-        <style>
-.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
-</style>
-        
-        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
-        
-    </head>
-    <body class="vscode-body vscode-light">
-        <h1 id="os">OS</h1>
-<!--introduced_in=v0.10.0-->
-<blockquote>
-<p>Stability: 2 - Stable</p>
-</blockquote>
-<!-- source_link=lib/os.js -->
+<p></p><div class="api_stability api_stability_2"><a href="documentation.html#stability-index">Stability: 2</a> - Stable</div><p></p>
+<p><strong>Source Code:</strong> <a href="https://github.com/nodejs/node/blob/v16.14.2/lib/os.js">lib/os.js</a></p>
 <p>The <code>os</code> module provides operating system-related utility methods and
 properties. It can be accessed using:</p>
-<pre><code class="language-js"><div><span class="hljs-keyword">const</span> os = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;os&#x27;</span>);
-</div></code></pre>
-<h2 id="oseol"><code>os.EOL</code></h2>
-<!-- YAML
-added: v0.7.8
--->
+<pre><code class="language-js"><span class="hljs-keyword">const</span> os = <span class="hljs-built_in">require</span>(<span class="hljs-string">'os'</span>);</code></pre>
+<section><h3><code>os.EOL</code><span><a class="mark" href="#oseol" id="oseol">#</a></span><a aria-hidden="true" class="legacy" id="os_os_eol"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.7.8</span>
+</div>
 <ul>
-<li>{string}</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>The operating system-specific end-of-line marker.</p>
 <ul>
 <li><code>\n</code> on POSIX</li>
 <li><code>\r\n</code> on Windows</li>
 </ul>
-<h2 id="osarch"><code>os.arch()</code></h2>
-<!-- YAML
-added: v0.5.0
--->
+</section><section><h3><code>os.arch()</code><span><a class="mark" href="#osarch" id="osarch">#</a></span><a aria-hidden="true" class="legacy" id="os_os_arch"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.5.0</span>
+</div>
 <ul>
-<li>Returns: {string}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>Returns the operating system CPU architecture for which the Node.js binary was
 compiled. Possible values are <code>'arm'</code>, <code>'arm64'</code>, <code>'ia32'</code>, <code>'mips'</code>,
-<code>'mipsel'</code>, <code>'ppc'</code>, <code>'ppc64'</code>, <code>'s390'</code>, <code>'s390x'</code>, and <code>'x64'</code>.</p>
-<p>The return value is equivalent to <a href="process.md#processarch"><code>process.arch</code></a>.</p>
-<h2 id="osconstants"><code>os.constants</code></h2>
-<!-- YAML
-added: v6.3.0
--->
+<code>'mipsel'</code>, <code>'ppc'</code>, <code>'ppc64'</code>, <code>'s390'</code>, <code>'s390x'</code>, <code>'x32'</code>, and <code>'x64'</code>.</p>
+<p>The return value is equivalent to <a href="process.html#processarch"><code>process.arch</code></a>.</p>
+</section><section><h3><code>os.constants</code><span><a class="mark" href="#osconstants" id="osconstants">#</a></span><a aria-hidden="true" class="legacy" id="os_os_constants"></a></h3>
+<div class="api_metadata">
+<span>Added in: v6.3.0</span>
+</div>
 <ul>
-<li>{Object}</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="type">&#x3C;Object></a></li>
 </ul>
 <p>Contains commonly used operating system-specific constants for error codes,
 process signals, and so on. The specific constants defined are described in
 <a href="#os-constants">OS constants</a>.</p>
-<h2 id="oscpus"><code>os.cpus()</code></h2>
-<!-- YAML
-added: v0.3.3
--->
+</section><section><h3><code>os.cpus()</code><span><a class="mark" href="#oscpus" id="oscpus">#</a></span><a aria-hidden="true" class="legacy" id="os_os_cpus"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.3.3</span>
+</div>
 <ul>
-<li>Returns: {Object[]}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="type">&#x3C;Object[]></a></li>
 </ul>
 <p>Returns an array of objects containing information about each logical CPU core.</p>
 <p>The properties included on each object include:</p>
 <ul>
-<li><code>model</code> {string}</li>
-<li><code>speed</code> {number} (in MHz)</li>
-<li><code>times</code> {Object}
+<li><code>model</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
+<li><code>speed</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;number></a> (in MHz)</li>
+<li><code>times</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="type">&#x3C;Object></a>
 <ul>
-<li><code>user</code> {number} The number of milliseconds the CPU has spent in user mode.</li>
-<li><code>nice</code> {number} The number of milliseconds the CPU has spent in nice mode.</li>
-<li><code>sys</code> {number} The number of milliseconds the CPU has spent in sys mode.</li>
-<li><code>idle</code> {number} The number of milliseconds the CPU has spent in idle mode.</li>
-<li><code>irq</code> {number} The number of milliseconds the CPU has spent in irq mode.</li>
+<li><code>user</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;number></a> The number of milliseconds the CPU has spent in user mode.</li>
+<li><code>nice</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;number></a> The number of milliseconds the CPU has spent in nice mode.</li>
+<li><code>sys</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;number></a> The number of milliseconds the CPU has spent in sys mode.</li>
+<li><code>idle</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;number></a> The number of milliseconds the CPU has spent in idle mode.</li>
+<li><code>irq</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;number></a> The number of milliseconds the CPU has spent in irq mode.</li>
 </ul>
 </li>
 </ul>
 <!-- eslint-disable semi -->
-<pre><code class="language-js"><div>[
+<pre><code class="language-js">[
   {
-    <span class="hljs-attr">model</span>: <span class="hljs-string">&#x27;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&#x27;</span>,
+    <span class="hljs-attr">model</span>: <span class="hljs-string">'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz'</span>,
     <span class="hljs-attr">speed</span>: <span class="hljs-number">2926</span>,
     <span class="hljs-attr">times</span>: {
       <span class="hljs-attr">user</span>: <span class="hljs-number">252020</span>,
@@ -128,7 +262,7 @@ added: v0.3.3
     }
   },
   {
-    <span class="hljs-attr">model</span>: <span class="hljs-string">&#x27;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&#x27;</span>,
+    <span class="hljs-attr">model</span>: <span class="hljs-string">'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz'</span>,
     <span class="hljs-attr">speed</span>: <span class="hljs-number">2926</span>,
     <span class="hljs-attr">times</span>: {
       <span class="hljs-attr">user</span>: <span class="hljs-number">306960</span>,
@@ -139,7 +273,7 @@ added: v0.3.3
     }
   },
   {
-    <span class="hljs-attr">model</span>: <span class="hljs-string">&#x27;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&#x27;</span>,
+    <span class="hljs-attr">model</span>: <span class="hljs-string">'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz'</span>,
     <span class="hljs-attr">speed</span>: <span class="hljs-number">2926</span>,
     <span class="hljs-attr">times</span>: {
       <span class="hljs-attr">user</span>: <span class="hljs-number">248450</span>,
@@ -150,7 +284,7 @@ added: v0.3.3
     }
   },
   {
-    <span class="hljs-attr">model</span>: <span class="hljs-string">&#x27;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&#x27;</span>,
+    <span class="hljs-attr">model</span>: <span class="hljs-string">'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz'</span>,
     <span class="hljs-attr">speed</span>: <span class="hljs-number">2926</span>,
     <span class="hljs-attr">times</span>: {
       <span class="hljs-attr">user</span>: <span class="hljs-number">256880</span>,
@@ -160,91 +294,88 @@ added: v0.3.3
       <span class="hljs-attr">irq</span>: <span class="hljs-number">20</span>
     }
   },
-]
-</div></code></pre>
+]</code></pre>
 <p><code>nice</code> values are POSIX-only. On Windows, the <code>nice</code> values of all processors
 are always 0.</p>
-<h2 id="osdevnull"><code>os.devNull</code></h2>
-<!-- YAML
-added:
-  - v16.3.0
-  - v14.18.0
--->
+</section><section><h3><code>os.devNull</code><span><a class="mark" href="#osdevnull" id="osdevnull">#</a></span><a aria-hidden="true" class="legacy" id="os_os_devnull"></a></h3>
+<div class="api_metadata">
+<span>Added in: v16.3.0</span>
+</div>
 <ul>
-<li>{string}</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>The platform-specific file path of the null device.</p>
 <ul>
 <li><code>\\.\nul</code> on Windows</li>
 <li><code>/dev/null</code> on POSIX</li>
 </ul>
-<h2 id="osendianness"><code>os.endianness()</code></h2>
-<!-- YAML
-added: v0.9.4
--->
+</section><section><h3><code>os.endianness()</code><span><a class="mark" href="#osendianness" id="osendianness">#</a></span><a aria-hidden="true" class="legacy" id="os_os_endianness"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.9.4</span>
+</div>
 <ul>
-<li>Returns: {string}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>Returns a string identifying the endianness of the CPU for which the Node.js
 binary was compiled.</p>
 <p>Possible values are <code>'BE'</code> for big endian and <code>'LE'</code> for little endian.</p>
-<h2 id="osfreemem"><code>os.freemem()</code></h2>
-<!-- YAML
-added: v0.3.3
--->
+</section><section><h3><code>os.freemem()</code><span><a class="mark" href="#osfreemem" id="osfreemem">#</a></span><a aria-hidden="true" class="legacy" id="os_os_freemem"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.3.3</span>
+</div>
 <ul>
-<li>Returns: {integer}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;integer></a></li>
 </ul>
 <p>Returns the amount of free system memory in bytes as an integer.</p>
-<h2 id="osgetprioritypid"><code>os.getPriority([pid])</code></h2>
-<!-- YAML
-added: v10.10.0
--->
+</section><section><h3><code>os.getPriority([pid])</code><span><a class="mark" href="#osgetprioritypid" id="osgetprioritypid">#</a></span><a aria-hidden="true" class="legacy" id="os_os_getpriority_pid"></a></h3>
+<div class="api_metadata">
+<span>Added in: v10.10.0</span>
+</div>
 <ul>
-<li><code>pid</code> {integer} The process ID to retrieve scheduling priority for.
+<li><code>pid</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;integer></a> The process ID to retrieve scheduling priority for.
 <strong>Default:</strong> <code>0</code>.</li>
-<li>Returns: {integer}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;integer></a></li>
 </ul>
 <p>Returns the scheduling priority for the process specified by <code>pid</code>. If <code>pid</code> is
 not provided or is <code>0</code>, the priority of the current process is returned.</p>
-<h2 id="oshomedir"><code>os.homedir()</code></h2>
-<!-- YAML
-added: v2.3.0
--->
+</section><section><h3><code>os.homedir()</code><span><a class="mark" href="#oshomedir" id="oshomedir">#</a></span><a aria-hidden="true" class="legacy" id="os_os_homedir"></a></h3>
+<div class="api_metadata">
+<span>Added in: v2.3.0</span>
+</div>
 <ul>
-<li>Returns: {string}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>Returns the string path of the current user's home directory.</p>
 <p>On POSIX, it uses the <code>$HOME</code> environment variable if defined. Otherwise it
 uses the <a href="https://en.wikipedia.org/wiki/User_identifier#Effective_user_ID">effective UID</a> to look up the user's home directory.</p>
 <p>On Windows, it uses the <code>USERPROFILE</code> environment variable if defined.
 Otherwise it uses the path to the profile directory of the current user.</p>
-<h2 id="oshostname"><code>os.hostname()</code></h2>
-<!-- YAML
-added: v0.3.3
--->
+</section><section><h3><code>os.hostname()</code><span><a class="mark" href="#oshostname" id="oshostname">#</a></span><a aria-hidden="true" class="legacy" id="os_os_hostname"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.3.3</span>
+</div>
 <ul>
-<li>Returns: {string}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>Returns the host name of the operating system as a string.</p>
-<h2 id="osloadavg"><code>os.loadavg()</code></h2>
-<!-- YAML
-added: v0.3.3
--->
+</section><section><h3><code>os.loadavg()</code><span><a class="mark" href="#osloadavg" id="osloadavg">#</a></span><a aria-hidden="true" class="legacy" id="os_os_loadavg"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.3.3</span>
+</div>
 <ul>
-<li>Returns: {number[]}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;number[]></a></li>
 </ul>
 <p>Returns an array containing the 1, 5, and 15 minute load averages.</p>
 <p>The load average is a measure of system activity calculated by the operating
 system and expressed as a fractional number.</p>
 <p>The load average is a Unix-specific concept. On Windows, the return value is
 always <code>[0, 0, 0]</code>.</p>
-<h2 id="osnetworkinterfaces"><code>os.networkInterfaces()</code></h2>
-<!-- YAML
-added: v0.6.0
--->
+</section><section><h3><code>os.networkInterfaces()</code><span><a class="mark" href="#osnetworkinterfaces" id="osnetworkinterfaces">#</a></span><a aria-hidden="true" class="legacy" id="os_os_networkinterfaces"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.6.0</span>
+</div>
 <ul>
-<li>Returns: {Object}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="type">&#x3C;Object></a></li>
 </ul>
 <p>Returns an object containing network interfaces that have been assigned a
 network address.</p>
@@ -252,93 +383,92 @@ network address.</p>
 value is an array of objects that each describe an assigned network address.</p>
 <p>The properties available on the assigned network address object include:</p>
 <ul>
-<li><code>address</code> {string} The assigned IPv4 or IPv6 address</li>
-<li><code>netmask</code> {string} The IPv4 or IPv6 network mask</li>
-<li><code>family</code> {string} Either <code>IPv4</code> or <code>IPv6</code></li>
-<li><code>mac</code> {string} The MAC address of the network interface</li>
-<li><code>internal</code> {boolean} <code>true</code> if the network interface is a loopback or
+<li><code>address</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a> The assigned IPv4 or IPv6 address</li>
+<li><code>netmask</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a> The IPv4 or IPv6 network mask</li>
+<li><code>family</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a> Either <code>IPv4</code> or <code>IPv6</code></li>
+<li><code>mac</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a> The MAC address of the network interface</li>
+<li><code>internal</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type" class="type">&#x3C;boolean></a> <code>true</code> if the network interface is a loopback or
 similar interface that is not remotely accessible; otherwise <code>false</code></li>
-<li><code>scopeid</code> {number} The numeric IPv6 scope ID (only specified when <code>family</code>
+<li><code>scopeid</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;number></a> The numeric IPv6 scope ID (only specified when <code>family</code>
 is <code>IPv6</code>)</li>
-<li><code>cidr</code> {string} The assigned IPv4 or IPv6 address with the routing prefix
+<li><code>cidr</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a> The assigned IPv4 or IPv6 address with the routing prefix
 in CIDR notation. If the <code>netmask</code> is invalid, this property is set
 to <code>null</code>.</li>
 </ul>
 <!-- eslint-skip -->
-<pre><code class="language-js"><div>{
+<pre><code class="language-js">{
   <span class="hljs-attr">lo</span>: [
     {
-      <span class="hljs-attr">address</span>: <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,
-      <span class="hljs-attr">netmask</span>: <span class="hljs-string">&#x27;255.0.0.0&#x27;</span>,
-      <span class="hljs-attr">family</span>: <span class="hljs-string">&#x27;IPv4&#x27;</span>,
-      <span class="hljs-attr">mac</span>: <span class="hljs-string">&#x27;00:00:00:00:00:00&#x27;</span>,
+      <span class="hljs-attr">address</span>: <span class="hljs-string">'127.0.0.1'</span>,
+      <span class="hljs-attr">netmask</span>: <span class="hljs-string">'255.0.0.0'</span>,
+      <span class="hljs-attr">family</span>: <span class="hljs-string">'IPv4'</span>,
+      <span class="hljs-attr">mac</span>: <span class="hljs-string">'00:00:00:00:00:00'</span>,
       <span class="hljs-attr">internal</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">cidr</span>: <span class="hljs-string">&#x27;127.0.0.1/8&#x27;</span>
+      <span class="hljs-attr">cidr</span>: <span class="hljs-string">'127.0.0.1/8'</span>
     },
     {
-      <span class="hljs-attr">address</span>: <span class="hljs-string">&#x27;::1&#x27;</span>,
-      <span class="hljs-attr">netmask</span>: <span class="hljs-string">&#x27;ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff&#x27;</span>,
-      <span class="hljs-attr">family</span>: <span class="hljs-string">&#x27;IPv6&#x27;</span>,
-      <span class="hljs-attr">mac</span>: <span class="hljs-string">&#x27;00:00:00:00:00:00&#x27;</span>,
+      <span class="hljs-attr">address</span>: <span class="hljs-string">'::1'</span>,
+      <span class="hljs-attr">netmask</span>: <span class="hljs-string">'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff'</span>,
+      <span class="hljs-attr">family</span>: <span class="hljs-string">'IPv6'</span>,
+      <span class="hljs-attr">mac</span>: <span class="hljs-string">'00:00:00:00:00:00'</span>,
       <span class="hljs-attr">scopeid</span>: <span class="hljs-number">0</span>,
       <span class="hljs-attr">internal</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">cidr</span>: <span class="hljs-string">&#x27;::1/128&#x27;</span>
+      <span class="hljs-attr">cidr</span>: <span class="hljs-string">'::1/128'</span>
     }
   ],
   <span class="hljs-attr">eth0</span>: [
     {
-      <span class="hljs-attr">address</span>: <span class="hljs-string">&#x27;192.168.1.108&#x27;</span>,
-      <span class="hljs-attr">netmask</span>: <span class="hljs-string">&#x27;255.255.255.0&#x27;</span>,
-      <span class="hljs-attr">family</span>: <span class="hljs-string">&#x27;IPv4&#x27;</span>,
-      <span class="hljs-attr">mac</span>: <span class="hljs-string">&#x27;01:02:03:0a:0b:0c&#x27;</span>,
+      <span class="hljs-attr">address</span>: <span class="hljs-string">'192.168.1.108'</span>,
+      <span class="hljs-attr">netmask</span>: <span class="hljs-string">'255.255.255.0'</span>,
+      <span class="hljs-attr">family</span>: <span class="hljs-string">'IPv4'</span>,
+      <span class="hljs-attr">mac</span>: <span class="hljs-string">'01:02:03:0a:0b:0c'</span>,
       <span class="hljs-attr">internal</span>: <span class="hljs-literal">false</span>,
-      <span class="hljs-attr">cidr</span>: <span class="hljs-string">&#x27;192.168.1.108/24&#x27;</span>
+      <span class="hljs-attr">cidr</span>: <span class="hljs-string">'192.168.1.108/24'</span>
     },
     {
-      <span class="hljs-attr">address</span>: <span class="hljs-string">&#x27;fe80::a00:27ff:fe4e:66a1&#x27;</span>,
-      <span class="hljs-attr">netmask</span>: <span class="hljs-string">&#x27;ffff:ffff:ffff:ffff::&#x27;</span>,
-      <span class="hljs-attr">family</span>: <span class="hljs-string">&#x27;IPv6&#x27;</span>,
-      <span class="hljs-attr">mac</span>: <span class="hljs-string">&#x27;01:02:03:0a:0b:0c&#x27;</span>,
+      <span class="hljs-attr">address</span>: <span class="hljs-string">'fe80::a00:27ff:fe4e:66a1'</span>,
+      <span class="hljs-attr">netmask</span>: <span class="hljs-string">'ffff:ffff:ffff:ffff::'</span>,
+      <span class="hljs-attr">family</span>: <span class="hljs-string">'IPv6'</span>,
+      <span class="hljs-attr">mac</span>: <span class="hljs-string">'01:02:03:0a:0b:0c'</span>,
       <span class="hljs-attr">scopeid</span>: <span class="hljs-number">1</span>,
       <span class="hljs-attr">internal</span>: <span class="hljs-literal">false</span>,
-      <span class="hljs-attr">cidr</span>: <span class="hljs-string">&#x27;fe80::a00:27ff:fe4e:66a1/64&#x27;</span>
+      <span class="hljs-attr">cidr</span>: <span class="hljs-string">'fe80::a00:27ff:fe4e:66a1/64'</span>
     }
   ]
-}
-</div></code></pre>
-<h2 id="osplatform"><code>os.platform()</code></h2>
-<!-- YAML
-added: v0.5.0
--->
+}</code></pre>
+</section><section><h3><code>os.platform()</code><span><a class="mark" href="#osplatform" id="osplatform">#</a></span><a aria-hidden="true" class="legacy" id="os_os_platform"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.5.0</span>
+</div>
 <ul>
-<li>Returns: {string}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>Returns a string identifying the operating system platform for which
 the Node.js binary was compiled. The value is set at compile time.
 Possible values are <code>'aix'</code>, <code>'darwin'</code>, <code>'freebsd'</code>,<code>'linux'</code>,
 <code>'openbsd'</code>, <code>'sunos'</code>, and <code>'win32'</code>.</p>
-<p>The return value is equivalent to <a href="process.md#processplatform"><code>process.platform</code></a>.</p>
+<p>The return value is equivalent to <a href="process.html#processplatform"><code>process.platform</code></a>.</p>
 <p>The value <code>'android'</code> may also be returned if Node.js is built on the Android
 operating system. <a href="https://github.com/nodejs/node/blob/HEAD/BUILDING.md#androidandroid-based-devices-eg-firefox-os">Android support is experimental</a>.</p>
-<h2 id="osrelease"><code>os.release()</code></h2>
-<!-- YAML
-added: v0.3.3
--->
+</section><section><h3><code>os.release()</code><span><a class="mark" href="#osrelease" id="osrelease">#</a></span><a aria-hidden="true" class="legacy" id="os_os_release"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.3.3</span>
+</div>
 <ul>
-<li>Returns: {string}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>Returns the operating system as a string.</p>
 <p>On POSIX systems, the operating system release is determined by calling
 <a href="https://linux.die.net/man/3/uname"><code>uname(3)</code></a>. On Windows, <code>GetVersionExW()</code> is used. See
 <a href="https://en.wikipedia.org/wiki/Uname#Examples">https://en.wikipedia.org/wiki/Uname#Examples</a> for more information.</p>
-<h2 id="ossetprioritypid-priority"><code>os.setPriority([pid, ]priority)</code></h2>
-<!-- YAML
-added: v10.10.0
--->
+</section><section><h3><code>os.setPriority([pid, ]priority)</code><span><a class="mark" href="#ossetprioritypid-priority" id="ossetprioritypid-priority">#</a></span><a aria-hidden="true" class="legacy" id="os_os_setpriority_pid_priority"></a></h3>
+<div class="api_metadata">
+<span>Added in: v10.10.0</span>
+</div>
 <ul>
-<li><code>pid</code> {integer} The process ID to set scheduling priority for.
+<li><code>pid</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;integer></a> The process ID to set scheduling priority for.
 <strong>Default:</strong> <code>0</code>.</li>
-<li><code>priority</code> {integer} The scheduling priority to assign to the process.</li>
+<li><code>priority</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;integer></a> The scheduling priority to assign to the process.</li>
 </ul>
 <p>Attempts to set the scheduling priority for the process specified by <code>pid</code>. If
 <code>pid</code> is not provided or is <code>0</code>, the process ID of the current process is used.</p>
@@ -351,65 +481,71 @@ confusion, set <code>priority</code> to one of the priority constants.</p>
 <p>On Windows, setting priority to <code>PRIORITY_HIGHEST</code> requires elevated user
 privileges. Otherwise the set priority will be silently reduced to
 <code>PRIORITY_HIGH</code>.</p>
-<h2 id="ostmpdir"><code>os.tmpdir()</code></h2>
-<!-- YAML
-added: v0.9.9
-changes:
-  - version: v2.0.0
-    pr-url: https://github.com/nodejs/node/pull/747
-    description: This function is now cross-platform consistent and no longer
-                 returns a path with a trailing slash on any platform.
--->
+</section><section><h3><code>os.tmpdir()</code><span><a class="mark" href="#ostmpdir" id="ostmpdir">#</a></span><a aria-hidden="true" class="legacy" id="os_os_tmpdir"></a></h3>
+<div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v2.0.0</td>
+<td><p>This function is now cross-platform consistent and no longer returns a path with a trailing slash on any platform.</p></td></tr>
+<tr><td>v0.9.9</td>
+<td><p><span>Added in: v0.9.9</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
 <ul>
-<li>Returns: {string}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>Returns the operating system's default directory for temporary files as a
 string.</p>
-<h2 id="ostotalmem"><code>os.totalmem()</code></h2>
-<!-- YAML
-added: v0.3.3
--->
+</section><section><h3><code>os.totalmem()</code><span><a class="mark" href="#ostotalmem" id="ostotalmem">#</a></span><a aria-hidden="true" class="legacy" id="os_os_totalmem"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.3.3</span>
+</div>
 <ul>
-<li>Returns: {integer}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;integer></a></li>
 </ul>
 <p>Returns the total amount of system memory in bytes as an integer.</p>
-<h2 id="ostype"><code>os.type()</code></h2>
-<!-- YAML
-added: v0.3.3
--->
+</section><section><h3><code>os.type()</code><span><a class="mark" href="#ostype" id="ostype">#</a></span><a aria-hidden="true" class="legacy" id="os_os_type"></a></h3>
+<div class="api_metadata">
+<span>Added in: v0.3.3</span>
+</div>
 <ul>
-<li>Returns: {string}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>Returns the operating system name as returned by <a href="https://linux.die.net/man/3/uname"><code>uname(3)</code></a>. For example, it
 returns <code>'Linux'</code> on Linux, <code>'Darwin'</code> on macOS, and <code>'Windows_NT'</code> on Windows.</p>
 <p>See <a href="https://en.wikipedia.org/wiki/Uname#Examples">https://en.wikipedia.org/wiki/Uname#Examples</a> for additional information
 about the output of running <a href="https://linux.die.net/man/3/uname"><code>uname(3)</code></a> on various operating systems.</p>
-<h2 id="osuptime"><code>os.uptime()</code></h2>
-<!-- YAML
-added: v0.3.3
-changes:
-  - version: v10.0.0
-    pr-url: https://github.com/nodejs/node/pull/20129
-    description: The result of this function no longer contains a fraction
-                 component on Windows.
--->
+</section><section><h3><code>os.uptime()</code><span><a class="mark" href="#osuptime" id="osuptime">#</a></span><a aria-hidden="true" class="legacy" id="os_os_uptime"></a></h3>
+<div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>The result of this function no longer contains a fraction component on Windows.</p></td></tr>
+<tr><td>v0.3.3</td>
+<td><p><span>Added in: v0.3.3</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
 <ul>
-<li>Returns: {integer}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type" class="type">&#x3C;integer></a></li>
 </ul>
 <p>Returns the system uptime in number of seconds.</p>
-<h2 id="osuserinfooptions"><code>os.userInfo([options])</code></h2>
-<!-- YAML
-added: v6.0.0
--->
+</section><section><h3><code>os.userInfo([options])</code><span><a class="mark" href="#osuserinfooptions" id="osuserinfooptions">#</a></span><a aria-hidden="true" class="legacy" id="os_os_userinfo_options"></a></h3>
+<div class="api_metadata">
+<span>Added in: v6.0.0</span>
+</div>
 <ul>
-<li><code>options</code> {Object}
+<li><code>options</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="type">&#x3C;Object></a>
 <ul>
-<li><code>encoding</code> {string} Character encoding used to interpret resulting strings.
+<li><code>encoding</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a> Character encoding used to interpret resulting strings.
 If <code>encoding</code> is set to <code>'buffer'</code>, the <code>username</code>, <code>shell</code>, and <code>homedir</code>
 values will be <code>Buffer</code> instances. <strong>Default:</strong> <code>'utf8'</code>.</li>
 </ul>
 </li>
-<li>Returns: {Object}</li>
+<li>Returns: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="type">&#x3C;Object></a></li>
 </ul>
 <p>Returns information about the currently effective user. On POSIX platforms,
 this is typically a subset of the password file. The returned object includes
@@ -419,34 +555,35 @@ the <code>username</code>, <code>uid</code>, <code>gid</code>, <code>shell</code
 system. This differs from the result of <code>os.homedir()</code>, which queries
 environment variables for the home directory before falling back to the
 operating system response.</p>
-<p>Throws a <a href="errors.md#class-systemerror"><code>SystemError</code></a> if a user has no <code>username</code> or <code>homedir</code>.</p>
-<h2 id="osversion"><code>os.version()</code></h2>
-<!-- YAML
-added:
- - v13.11.0
- - v12.17.0
--->
+<p>Throws a <a href="errors.html#class-systemerror"><code>SystemError</code></a> if a user has no <code>username</code> or <code>homedir</code>.</p>
+</section><section><h3><code>os.version()</code><span><a class="mark" href="#osversion" id="osversion">#</a></span><a aria-hidden="true" class="legacy" id="os_os_version"></a></h3>
+<div class="api_metadata">
+<span>Added in: v13.11.0, v12.17.0</span>
+</div>
 <ul>
-<li>Returns {string}</li>
+<li>Returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type" class="type">&#x3C;string></a></li>
 </ul>
 <p>Returns a string identifying the kernel version.</p>
 <p>On POSIX systems, the operating system release is determined by calling
 <a href="https://linux.die.net/man/3/uname"><code>uname(3)</code></a>. On Windows, <code>RtlGetVersion()</code> is used, and if it is not
 available, <code>GetVersionExW()</code> will be used. See
 <a href="https://en.wikipedia.org/wiki/Uname#Examples">https://en.wikipedia.org/wiki/Uname#Examples</a> for more information.</p>
-<h2 id="os-constants">OS constants</h2>
+</section><section><h3>OS constants<span><a class="mark" href="#os-constants" id="os-constants">#</a></span><a aria-hidden="true" class="legacy" id="os_os_constants_1"></a></h3>
 <p>The following constants are exported by <code>os.constants</code>.</p>
 <p>Not all constants will be available on every operating system.</p>
-<h3 id="signal-constants">Signal constants</h3>
-<!-- YAML
-changes:
-  - version: v5.11.0
-    pr-url: https://github.com/nodejs/node/pull/6093
-    description: Added support for `SIGINFO`.
--->
+<h4>Signal constants<span><a class="mark" href="#signal-constants" id="signal-constants">#</a></span><a aria-hidden="true" class="legacy" id="os_signal_constants"></a></h4>
+<div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v5.11.0</td>
+<td><p>Added support for <code>SIGINFO</code>.</p></td></tr>
+</tbody></table>
+</details>
+</div>
 <p>The following signal constants are exported by <code>os.constants.signals</code>.</p>
 <table>
-  <tr>
+  <tbody><tr>
     <th>Constant</th>
     <th>Description</th>
   </tr>
@@ -604,12 +741,12 @@ changes:
     <td><code>SIGUNUSED</code></td>
     <td>Synonym for <code>SIGSYS</code></td>
   </tr>
-</table>
-<h3 id="error-constants">Error constants</h3>
+</tbody></table>
+<h4>Error constants<span><a class="mark" href="#error-constants" id="error-constants">#</a></span><a aria-hidden="true" class="legacy" id="os_error_constants"></a></h4>
 <p>The following error constants are exported by <code>os.constants.errno</code>.</p>
-<h4 id="posix-error-constants">POSIX error constants</h4>
+<h5>POSIX error constants<span><a class="mark" href="#posix-error-constants" id="posix-error-constants">#</a></span><a aria-hidden="true" class="legacy" id="os_posix_error_constants"></a></h5>
 <table>
-  <tr>
+  <tbody><tr>
     <th>Constant</th>
     <th>Description</th>
   </tr>
@@ -936,11 +1073,11 @@ changes:
     <td><code>EXDEV</code></td>
     <td>Indicates an improper link.</td>
   </tr>
-</table>
-<h4 id="windows-specific-error-constants">Windows-specific error constants</h4>
+</tbody></table>
+<h5>Windows-specific error constants<span><a class="mark" href="#windows-specific-error-constants" id="windows-specific-error-constants">#</a></span><a aria-hidden="true" class="legacy" id="os_windows_specific_error_constants"></a></h5>
 <p>The following error codes are specific to the Windows operating system.</p>
 <table>
-  <tr>
+  <tbody><tr>
     <th>Constant</th>
     <th>Description</th>
   </tr>
@@ -1178,13 +1315,13 @@ changes:
     <td><code>WSAEREFUSED</code></td>
     <td>Indicates that a database query was refused.</td>
   </tr>
-</table>
-<h3 id="dlopen-constants">dlopen constants</h3>
+</tbody></table>
+<h4>dlopen constants<span><a class="mark" href="#dlopen-constants" id="dlopen-constants">#</a></span><a aria-hidden="true" class="legacy" id="os_dlopen_constants"></a></h4>
 <p>If available on the operating system, the following constants
-are exported in <code>os.constants.dlopen</code>. See dlopen(3) for detailed
+are exported in <code>os.constants.dlopen</code>. See <a href="http://man7.org/linux/man-pages/man3/dlopen.3.html"><code>dlopen(3)</code></a> for detailed
 information.</p>
 <table>
-  <tr>
+  <tbody><tr>
     <th>Constant</th>
     <th>Description</th>
   </tr>
@@ -1212,15 +1349,15 @@ information.</p>
     <td>Make a self-contained library use its own symbols in preference to
     symbols from previously loaded libraries.</td>
   </tr>
-</table>
-<h3 id="priority-constants">Priority constants</h3>
-<!-- YAML
-added: v10.10.0
--->
+</tbody></table>
+<h4>Priority constants<span><a class="mark" href="#priority-constants" id="priority-constants">#</a></span><a aria-hidden="true" class="legacy" id="os_priority_constants"></a></h4>
+<div class="api_metadata">
+<span>Added in: v10.10.0</span>
+</div>
 <p>The following process scheduling constants are exported by
 <code>os.constants.priority</code>.</p>
 <table>
-  <tr>
+  <tbody><tr>
     <th>Constant</th>
     <th>Description</th>
   </tr>
@@ -1263,10 +1400,10 @@ added: v10.10.0
     <code>REALTIME_PRIORITY_CLASS</code> on Windows, and a nice value of
     <code>-20</code> on all other platforms.</td>
   </tr>
-</table>
-<h3 id="libuv-constants">libuv constants</h3>
+</tbody></table>
+<h4>libuv constants<span><a class="mark" href="#libuv-constants" id="libuv-constants">#</a></span><a aria-hidden="true" class="legacy" id="os_libuv_constants"></a></h4>
 <table>
-  <tr>
+  <tbody><tr>
     <th>Constant</th>
     <th>Description</th>
   </tr>
@@ -1274,7 +1411,46 @@ added: v10.10.0
     <td><code>UV_UDP_REUSEADDR</code></td>
     <td></td>
   </tr>
-</table>
-
-    </body>
-    </html>
+</tbody></table></section>
+        <!-- API END -->
+      </div>
+    </div>
+  </div>
+  <script>
+    'use strict';
+    {
+      const kCustomPreference = 'customDarkTheme';
+      const userSettings = sessionStorage.getItem(kCustomPreference);
+      const themeToggleButton = document.getElementById('theme-toggle-btn');
+      if (userSettings === null && window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        if ('onchange' in mq) {
+          function mqChangeListener(e) {
+            document.body.classList.toggle('dark-mode', e.matches);
+          }
+          mq.addEventListener('change', mqChangeListener);
+          if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', function() {
+              mq.removeEventListener('change', mqChangeListener);
+            }, { once: true });
+          }
+        }
+        if (mq.matches) {
+          document.body.classList.add('dark-mode');
+        }
+      } else if (userSettings === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+      if (themeToggleButton) {
+        themeToggleButton.hidden = false;
+        themeToggleButton.addEventListener('click', function() {
+          sessionStorage.setItem(
+            kCustomPreference,
+            document.body.classList.toggle('dark-mode')
+          );
+        });
+      }
+    }
+  </script>
+</body>
+</html>

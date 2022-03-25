@@ -19,7 +19,7 @@
 
 body {
   background: #090c15;
-  color: #84ba64;
+  color: #ffffff;
 }
 a:link, a:active, a:visited{
   color: #84ba64;
@@ -32,4 +32,26 @@ a:hover,a:focus {
   color: white;
   background-color:#3e7a38;
   outline: none;
+}
+
+pre{
+  background-color: #2c3437;
+}
+
+.copybtn {
+  border-radius: 3rem;
+  background-color: rgba(0,0,0,.3);
+  position: relative;
+  padding: 0.4rem 0.5rem;
+  display: inline;
+  top: 0px;
+  transition: opacity .2s ease-in-out;
+  transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+}
+
+.copybtn:hover{
+  appearance: none;
 }

@@ -1,428 +1,771 @@
 <!DOCTYPE html>
-    <html>
-      <button onclick="history.back()" id="BACKBUTTON" title="Go to top">Back</button>
-      <link rel="stylesheet" href="../css/default.css" />
-    <head>
-        <meta charset="UTF-8">
-        <title>HTTPS</title>
-        <style>
-/* From extension vscode.github */
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+<html lang="en">
 
-.vscode-dark img[src$=\#gh-light-mode-only],
-.vscode-light img[src$=\#gh-dark-mode-only] {
-	display: none;
-}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="nodejs.org:node-version" content="v16.14.2">
+  <title>HTTPS | Node.js v16.14.2 Documentation</title>
+  <link rel="stylesheet" href="../css/css.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/hljs.css">
+  <link rel="canonical" href="https://nodejs.org/api/https.html">
+</head>
 
-/* From extension vscode.markdown-math */
-@font-face{font-family:KaTeX_AMS;font-style:normal;font-weight:400;src:url(fonts/KaTeX_AMS-Regular.woff2) format("woff2"),url(fonts/KaTeX_AMS-Regular.woff) format("woff"),url(fonts/KaTeX_AMS-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Caligraphic-Bold.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Bold.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Caligraphic-Regular.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Regular.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Fraktur-Bold.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Bold.woff) format("woff"),url(fonts/KaTeX_Fraktur-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Fraktur-Regular.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Regular.woff) format("woff"),url(fonts/KaTeX_Fraktur-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Main-Bold.woff2) format("woff2"),url(fonts/KaTeX_Main-Bold.woff) format("woff"),url(fonts/KaTeX_Main-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Main-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Main-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Main-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Main-Italic.woff2) format("woff2"),url(fonts/KaTeX_Main-Italic.woff) format("woff"),url(fonts/KaTeX_Main-Italic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Main-Regular.woff2) format("woff2"),url(fonts/KaTeX_Main-Regular.woff) format("woff"),url(fonts/KaTeX_Main-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Math-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Math-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Math-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Math-Italic.woff2) format("woff2"),url(fonts/KaTeX_Math-Italic.woff) format("woff"),url(fonts/KaTeX_Math-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700;src:url(fonts/KaTeX_SansSerif-Bold.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Bold.woff) format("woff"),url(fonts/KaTeX_SansSerif-Bold.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400;src:url(fonts/KaTeX_SansSerif-Italic.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Italic.woff) format("woff"),url(fonts/KaTeX_SansSerif-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400;src:url(fonts/KaTeX_SansSerif-Regular.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Regular.woff) format("woff"),url(fonts/KaTeX_SansSerif-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Script;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Script-Regular.woff2) format("woff2"),url(fonts/KaTeX_Script-Regular.woff) format("woff"),url(fonts/KaTeX_Script-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size1;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size1-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size1-Regular.woff) format("woff"),url(fonts/KaTeX_Size1-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size2;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size2-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size2-Regular.woff) format("woff"),url(fonts/KaTeX_Size2-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size3;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size3-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size3-Regular.woff) format("woff"),url(fonts/KaTeX_Size3-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size4;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size4-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size4-Regular.woff) format("woff"),url(fonts/KaTeX_Size4-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Typewriter;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Typewriter-Regular.woff2) format("woff2"),url(fonts/KaTeX_Typewriter-Regular.woff) format("woff"),url(fonts/KaTeX_Typewriter-Regular.ttf) format("truetype")}.katex{text-rendering:auto;font:normal 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;text-indent:0}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.13.24"}.katex .katex-mathml{clip:rect(1px,1px,1px,1px);border:0;height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .base,.katex .strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .hbox{width:100%}.katex .hbox,.katex .thinbox{display:inline-flex;flex-direction:row}.katex .thinbox{max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline,.katex .hline,.katex .mfrac .frac-line,.katex .overline .overline-line,.katex .rule,.katex .underline .underline-line{min-height:1px}.katex .mspace{display:inline-block}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.inner,.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .clap>.fix,.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .clap>.inner,.katex .rlap>.inner{left:0}.katex .clap>.inner>span{margin-left:-50%;margin-right:50%}.katex .rule{border:0 solid;display:inline-block;position:relative}.katex .hline,.katex .overline .overline-line,.katex .underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.83333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.16666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.66666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.45666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .sizing.reset-size2.size11{font-size:4.14666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.85714286em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.46857143em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:2.96285714em}.katex .fontsize-ensurer.reset-size3.size11,.katex .sizing.reset-size3.size11{font-size:3.55428571em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.66666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.77777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.88888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.30444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .sizing.reset-size5.size11{font-size:2.76444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.58333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.66666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72833333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .sizing.reset-size7.size11{font-size:2.07333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.41666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.48611111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.55555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.44027778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .sizing.reset-size8.size11{font-size:1.72777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.28935185em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.34722222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.40509259em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.46296296em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.52083333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.5787037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20023148em}.katex .fontsize-ensurer.reset-size9.size11,.katex .sizing.reset-size9.size11{font-size:1.43981481em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.24108004em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.28929605em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.33751205em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.38572806em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.43394407em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48216008em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57859209em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69431051em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.83317261em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .sizing.reset-size10.size11{font-size:1.19961427em}.katex .fontsize-ensurer.reset-size11.size1,.katex .sizing.reset-size11.size1{font-size:.20096463em}.katex .fontsize-ensurer.reset-size11.size2,.katex .sizing.reset-size11.size2{font-size:.24115756em}.katex .fontsize-ensurer.reset-size11.size3,.katex .sizing.reset-size11.size3{font-size:.28135048em}.katex .fontsize-ensurer.reset-size11.size4,.katex .sizing.reset-size11.size4{font-size:.32154341em}.katex .fontsize-ensurer.reset-size11.size5,.katex .sizing.reset-size11.size5{font-size:.36173633em}.katex .fontsize-ensurer.reset-size11.size6,.katex .sizing.reset-size11.size6{font-size:.40192926em}.katex .fontsize-ensurer.reset-size11.size7,.katex .sizing.reset-size11.size7{font-size:.48231511em}.katex .fontsize-ensurer.reset-size11.size8,.katex .sizing.reset-size11.size8{font-size:.57877814em}.katex .fontsize-ensurer.reset-size11.size9,.katex .sizing.reset-size11.size9{font-size:.69453376em}.katex .fontsize-ensurer.reset-size11.size10,.katex .sizing.reset-size11.size10{font-size:.83360129em}.katex .fontsize-ensurer.reset-size11.size11,.katex .sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .accent .accent-body{position:relative}.katex .accent .accent-body:not(.accent-full){width:0}.katex .overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
+<body class="alt apidoc" id="api-section-https">
+  <div id="content" class="clearfix">
+    <div id="column2" class="interior">
+      <div id="intro" class="interior">
+        <a href="/" title="Go back to the home page">
+          Node.js
+        </a>
+      </div>
+      <ul>
+        <li><a href="documentation.html" class="nav-documentation">About this documentation</a></li>
+        <li><a href="synopsis.html" class="nav-synopsis">Usage and example</a></li>
+      </ul>
+      <hr class="line">
+      <ul>
+        <li><a href="assert.html" class="nav-assert">Assertion testing</a></li>
+        <li><a href="async_context.html" class="nav-async_context">Asynchronous context tracking</a></li>
+        <li><a href="async_hooks.html" class="nav-async_hooks">Async hooks</a></li>
+        <li><a href="buffer.html" class="nav-buffer">Buffer</a></li>
+        <li><a href="addons.html" class="nav-addons">C++ addons</a></li>
+        <li><a href="n-api.html" class="nav-n-api">C/C++ addons with Node-API</a></li>
+        <li><a href="embedding.html" class="nav-embedding">C++ embedder API</a></li>
+        <li><a href="child_process.html" class="nav-child_process">Child processes</a></li>
+        <li><a href="cluster.html" class="nav-cluster">Cluster</a></li>
+        <li><a href="cli.html" class="nav-cli">Command-line options</a></li>
+        <li><a href="console.html" class="nav-console">Console</a></li>
+        <li><a href="corepack.html" class="nav-corepack">Corepack</a></li>
+        <li><a href="crypto.html" class="nav-crypto">Crypto</a></li>
+        <li><a href="debugger.html" class="nav-debugger">Debugger</a></li>
+        <li><a href="deprecations.html" class="nav-deprecations">Deprecated APIs</a></li>
+        <li><a href="diagnostics_channel.html" class="nav-diagnostics_channel">Diagnostics Channel</a></li>
+        <li><a href="dns.html" class="nav-dns">DNS</a></li>
+        <li><a href="domain.html" class="nav-domain">Domain</a></li>
+        <li><a href="errors.html" class="nav-errors">Errors</a></li>
+        <li><a href="events.html" class="nav-events">Events</a></li>
+        <li><a href="fs.html" class="nav-fs">File system</a></li>
+        <li><a href="globals.html" class="nav-globals">Globals</a></li>
+        <li><a href="http.html" class="nav-http">HTTP</a></li>
+        <li><a href="http2.html" class="nav-http2">HTTP/2</a></li>
+        <li><a href="https.html" class="nav-https active">HTTPS</a></li>
+        <li><a href="inspector.html" class="nav-inspector">Inspector</a></li>
+        <li><a href="intl.html" class="nav-intl">Internationalization</a></li>
+        <li><a href="modules.html" class="nav-modules">Modules: CommonJS modules</a></li>
+        <li><a href="esm.html" class="nav-esm">Modules: ECMAScript modules</a></li>
+        <li><a href="module.html" class="nav-module">Modules: <code>module</code> API</a></li>
+        <li><a href="packages.html" class="nav-packages">Modules: Packages</a></li>
+        <li><a href="net.html" class="nav-net">Net</a></li>
+        <li><a href="os.html" class="nav-os">OS</a></li>
+        <li><a href="path.html" class="nav-path">Path</a></li>
+        <li><a href="perf_hooks.html" class="nav-perf_hooks">Performance hooks</a></li>
+        <li><a href="policy.html" class="nav-policy">Policies</a></li>
+        <li><a href="process.html" class="nav-process">Process</a></li>
+        <li><a href="punycode.html" class="nav-punycode">Punycode</a></li>
+        <li><a href="querystring.html" class="nav-querystring">Query strings</a></li>
+        <li><a href="readline.html" class="nav-readline">Readline</a></li>
+        <li><a href="repl.html" class="nav-repl">REPL</a></li>
+        <li><a href="report.html" class="nav-report">Report</a></li>
+        <li><a href="stream.html" class="nav-stream">Stream</a></li>
+        <li><a href="string_decoder.html" class="nav-string_decoder">String decoder</a></li>
+        <li><a href="timers.html" class="nav-timers">Timers</a></li>
+        <li><a href="tls.html" class="nav-tls">TLS/SSL</a></li>
+        <li><a href="tracing.html" class="nav-tracing">Trace events</a></li>
+        <li><a href="tty.html" class="nav-tty">TTY</a></li>
+        <li><a href="dgram.html" class="nav-dgram">UDP/datagram</a></li>
+        <li><a href="url.html" class="nav-url">URL</a></li>
+        <li><a href="util.html" class="nav-util">Utilities</a></li>
+        <li><a href="v8.html" class="nav-v8">V8</a></li>
+        <li><a href="vm.html" class="nav-vm">VM</a></li>
+        <li><a href="wasi.html" class="nav-wasi">WASI</a></li>
+        <li><a href="webcrypto.html" class="nav-webcrypto">Web Crypto API</a></li>
+        <li><a href="webstreams.html" class="nav-webstreams">Web Streams API</a></li>
+        <li><a href="worker_threads.html" class="nav-worker_threads">Worker threads</a></li>
+        <li><a href="zlib.html" class="nav-zlib">Zlib</a></li>
+      </ul>
+      <hr class="line">
+      <ul>
 
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+      </ul>
+    </div>
 
-.katex-error {
-	color: var(--vscode-editorError-foreground);
-}
+    <div id="column1" data-id="https" class="interior">
+      <header>
+        <div class="header-container">
+          <h1>Node.js v16.14.2 documentation</h1>
+          <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle dark mode/light mode"
+            aria-label="Toggle dark mode/light mode" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" height="24" width="24">
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path
+                d="M11.1 12.08c-2.33-4.51-.5-8.48.53-10.07C6.27 2.2 1.98 6.59 1.98 12c0 .14.02.28.02.42.62-.27 1.29-.42 2-.42 1.66 0 3.18.83 4.1 2.15A4.01 4.01 0 0111 18c0 1.52-.87 2.83-2.12 3.51.98.32 2.03.5 3.11.5 3.5 0 6.58-1.8 8.37-4.52-2.36.23-6.98-.97-9.26-5.41z" />
+              <path d="M7 16h-.18C6.4 14.84 5.3 14 4 14c-1.66 0-3 1.34-3 3s1.34 3 3 3h3c1.1 0 2-.9 2-2s-.9-2-2-2z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" height="24" width="24">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z" />
+            </svg>
+          </button>
+        </div>
+        <div id="gtoc">
+          <ul>
+            <li>
+              <a href="index.html">Index</a>
+            </li>
+            <li>
+              <a href="all.html">View on single page</a>
+            </li>
+            <li>
+              <a href="https.json">View as JSON</a>
+            </li>
 
-</style>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
-<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-<style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        </style>
-        <style>
-.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
-</style>
-        
-        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
-        
-    </head>
-    <body class="vscode-body vscode-light">
-        <h1 id="https">HTTPS</h1>
-<!--introduced_in=v0.10.0-->
-<blockquote>
-<p>Stability: 2 - Stable</p>
-</blockquote>
-<!-- source_link=lib/https.js -->
-<p>HTTPS is the HTTP protocol over TLS/SSL. In Node.js this is implemented as a
-separate module.</p>
-<h2 id="class-httpsagent">Class: <code>https.Agent</code></h2>
-<!-- YAML
-added: v0.4.5
-changes:
-  - version: v5.3.0
-    pr-url: https://github.com/nodejs/node/pull/4252
-    description: support `0` `maxCachedSessions` to disable TLS session caching.
-  - version: v2.5.0
-    pr-url: https://github.com/nodejs/node/pull/2228
-    description: parameter `maxCachedSessions` added to `options` for TLS
-                 sessions reuse.
--->
-<p>An <a href="#class-httpsagent"><code>Agent</code></a> object for HTTPS similar to <a href="http.md#class-httpagent"><code>http.Agent</code></a>. See
-<a href="#httpsrequestoptions-callback"><code>https.request()</code></a> for more information.</p>
-<h3 id="new-agentoptions"><code>new Agent([options])</code></h3>
-<!-- YAML
-changes:
-  - version: v12.5.0
-    pr-url: https://github.com/nodejs/node/pull/28209
-    description: do not automatically set servername if the target host was
-                 specified using an IP address.
--->
-<ul>
-<li><code>options</code> {Object} Set of configurable options to set on the agent.
-Can have the same fields as for <a href="http.md#new-agentoptions"><code>http.Agent(options)</code></a>, and
-<ul>
-<li>
-<p><code>maxCachedSessions</code> {number} maximum number of TLS cached sessions.
-Use <code>0</code> to disable TLS session caching. <strong>Default:</strong> <code>100</code>.</p>
-</li>
-<li>
-<p><code>servername</code> {string} the value of
-<a href="https://en.wikipedia.org/wiki/Server_Name_Indication">Server Name Indication extension</a> to be sent to the server. Use
-empty string <code>''</code> to disable sending the extension.
-<strong>Default:</strong> host name of the target server, unless the target server
-is specified using an IP address, in which case the default is <code>''</code> (no
-extension).</p>
-<p>See <a href="tls.md#session-resumption"><code>Session Resumption</code></a> for information about TLS session reuse.</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="event-keylog">Event: <code>'keylog'</code></h4>
-<!-- YAML
-added:
- - v13.2.0
- - v12.16.0
--->
-<ul>
-<li><code>line</code> {Buffer} Line of ASCII text, in NSS <code>SSLKEYLOGFILE</code> format.</li>
-<li><code>tlsSocket</code> {tls.TLSSocket} The <code>tls.TLSSocket</code> instance on which it was
-generated.</li>
-</ul>
-<p>The <code>keylog</code> event is emitted when key material is generated or received by a
-connection managed by this agent (typically before handshake has completed, but
-not necessarily). This keying material can be stored for debugging, as it
-allows captured TLS traffic to be decrypted. It may be emitted multiple times
-for each socket.</p>
-<p>A typical use case is to append received lines to a common text file, which is
-later used by software (such as Wireshark) to decrypt the traffic:</p>
-<pre><code class="language-js"><div><span class="hljs-comment">// ...</span>
-https.globalAgent.on(<span class="hljs-string">&#x27;keylog&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">line, tlsSocket</span>) =&gt;</span> {
-  fs.appendFileSync(<span class="hljs-string">&#x27;/tmp/ssl-keys.log&#x27;</span>, line, { <span class="hljs-attr">mode</span>: <span class="hljs-number">0o600</span> });
-});
-</div></code></pre>
-<h2 id="class-httpsserver">Class: <code>https.Server</code></h2>
-<!-- YAML
-added: v0.3.4
--->
-<ul>
-<li>Extends: {tls.Server}</li>
-</ul>
-<p>See <a href="http.md#class-httpserver"><code>http.Server</code></a> for more information.</p>
-<h3 id="serverclosecallback"><code>server.close([callback])</code></h3>
-<!-- YAML
-added: v0.1.90
--->
-<ul>
-<li><code>callback</code> {Function}</li>
-<li>Returns: {https.Server}</li>
-</ul>
-<p>See <a href="http.md#serverclosecallback"><code>server.close()</code></a> from the HTTP module for details.</p>
-<h3 id="serverheaderstimeout"><code>server.headersTimeout</code></h3>
-<!-- YAML
-added: v11.3.0
--->
-<ul>
-<li>{number} <strong>Default:</strong> <code>60000</code></li>
-</ul>
-<p>See <a href="http.md#serverheaderstimeout"><code>http.Server#headersTimeout</code></a>.</p>
-<h3 id="serverlisten"><code>server.listen()</code></h3>
-<p>Starts the HTTPS server listening for encrypted connections.
-This method is identical to <a href="net.md#serverlisten"><code>server.listen()</code></a> from <a href="net.md#class-netserver"><code>net.Server</code></a>.</p>
-<h3 id="servermaxheaderscount"><code>server.maxHeadersCount</code></h3>
-<ul>
-<li>{number} <strong>Default:</strong> <code>2000</code></li>
-</ul>
-<p>See <a href="http.md#servermaxheaderscount"><code>http.Server#maxHeadersCount</code></a>.</p>
-<h3 id="serverrequesttimeout"><code>server.requestTimeout</code></h3>
-<!-- YAML
-added: v14.11.0
--->
-<ul>
-<li>{number} <strong>Default:</strong> <code>0</code></li>
-</ul>
-<p>See <a href="http.md#serverrequesttimeout"><code>http.Server#requestTimeout</code></a>.</p>
-<h3 id="serversettimeoutmsecs"><code>server.setTimeout([msecs][, callback])</code></h3>
-<!-- YAML
-added: v0.11.2
--->
-<ul>
-<li><code>msecs</code> {number} <strong>Default:</strong> <code>120000</code> (2 minutes)</li>
-<li><code>callback</code> {Function}</li>
-<li>Returns: {https.Server}</li>
-</ul>
-<p>See <a href="http.md#serversettimeoutmsecs-callback"><code>http.Server#setTimeout()</code></a>.</p>
-<h3 id="servertimeout"><code>server.timeout</code></h3>
-<!-- YAML
-added: v0.11.2
-changes:
-  - version: v13.0.0
-    pr-url: https://github.com/nodejs/node/pull/27558
-    description: The default timeout changed from 120s to 0 (no timeout).
--->
-<ul>
-<li>{number} <strong>Default:</strong> 0 (no timeout)</li>
-</ul>
-<p>See <a href="http.md#servertimeout"><code>http.Server#timeout</code></a>.</p>
-<h3 id="serverkeepalivetimeout"><code>server.keepAliveTimeout</code></h3>
-<!-- YAML
-added: v8.0.0
--->
-<ul>
-<li>{number} <strong>Default:</strong> <code>5000</code> (5 seconds)</li>
-</ul>
-<p>See <a href="http.md#serverkeepalivetimeout"><code>http.Server#keepAliveTimeout</code></a>.</p>
-<h2 id="httpscreateserveroptions"><code>https.createServer([options][, requestListener])</code></h2>
-<!-- YAML
-added: v0.3.4
--->
-<ul>
-<li><code>options</code> {Object} Accepts <code>options</code> from <a href="tls.md#tlscreateserveroptions-secureconnectionlistener"><code>tls.createServer()</code></a>,
-<a href="tls.md#tlscreatesecurecontextoptions"><code>tls.createSecureContext()</code></a> and <a href="http.md#httpcreateserveroptions-requestlistener"><code>http.createServer()</code></a>.</li>
-<li><code>requestListener</code> {Function} A listener to be added to the <code>'request'</code> event.</li>
-<li>Returns: {https.Server}</li>
-</ul>
-<pre><code class="language-js"><div><span class="hljs-comment">// curl -k https://localhost:8000/</span>
-<span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;https&#x27;</span>);
-<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
+
+
+            <ol class="version-picker">
+              <li><a href="https://nodejs.org/docs/latest-v17.x/api/https.html">17.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v16.x/api/https.html">16.x <b>LTS</b></a></li>
+              <li><a href="https://nodejs.org/docs/latest-v15.x/api/https.html">15.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v14.x/api/https.html">14.x <b>LTS</b></a></li>
+              <li><a href="https://nodejs.org/docs/latest-v13.x/api/https.html">13.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v12.x/api/https.html">12.x <b>LTS</b></a></li>
+              <li><a href="https://nodejs.org/docs/latest-v11.x/api/https.html">11.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v10.x/api/https.html">10.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v9.x/api/https.html">9.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v8.x/api/https.html">8.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v7.x/api/https.html">7.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v6.x/api/https.html">6.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v5.x/api/https.html">5.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v4.x/api/https.html">4.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v0.12.x/api/https.html">0.12.x</a></li>
+              <li><a href="https://nodejs.org/docs/latest-v0.10.x/api/https.html">0.10.x</a></li>
+            </ol>
+            </li>
+          </ul>
+        </div>
+        <hr>
+      </header>
+
+      <details id="toc" open>
+        <summary>Table of contents</summary>
+        <ul>
+          <li><span class="stability_2"><a href="#https">HTTPS</a></span>
+            <ul>
+              <li><a href="#class-httpsagent">Class: <code>https.Agent</code></a>
+                <ul>
+                  <li><a href="#new-agentoptions"><code>new Agent([options])</code></a>
+                    <ul>
+                      <li><a href="#event-keylog">Event: <code>'keylog'</code></a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="#class-httpsserver">Class: <code>https.Server</code></a>
+                <ul>
+                  <li><a href="#serverclosecallback"><code>server.close([callback])</code></a></li>
+                  <li><a href="#serverheaderstimeout"><code>server.headersTimeout</code></a></li>
+                  <li><a href="#serverlisten"><code>server.listen()</code></a></li>
+                  <li><a href="#servermaxheaderscount"><code>server.maxHeadersCount</code></a></li>
+                  <li><a href="#serverrequesttimeout"><code>server.requestTimeout</code></a></li>
+                  <li><a href="#serversettimeoutmsecs-callback"><code>server.setTimeout([msecs][, callback])</code></a>
+                  </li>
+                  <li><a href="#servertimeout"><code>server.timeout</code></a></li>
+                  <li><a href="#serverkeepalivetimeout"><code>server.keepAliveTimeout</code></a></li>
+                </ul>
+              </li>
+              <li><a href="#httpscreateserveroptions-requestlistener"><code>https.createServer([options][,
+                    requestListener])</code></a></li>
+              <li><a href="#httpsgetoptions-callback"><code>https.get(options[, callback])</code></a></li>
+              <li><a href="#httpsgeturl-options-callback"><code>https.get(url[, options][, callback])</code></a></li>
+              <li><a href="#httpsglobalagent"><code>https.globalAgent</code></a></li>
+              <li><a href="#httpsrequestoptions-callback"><code>https.request(options[, callback])</code></a></li>
+              <li><a href="#httpsrequesturl-options-callback"><code>https.request(url[, options][, callback])</code></a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </details>
+
+      <div id="apicontent">
+        <h2>HTTPS<span><a class="mark" href="#https" id="https">#</a></span><a aria-hidden="true" class="legacy"
+            id="https_https"></a></h2>
+
+        <p></p>
+        <div class="api_stability api_stability_2"><a href="documentation.html#stability-index">Stability: 2</a> -
+          Stable</div>
+        <p></p>
+        <p><strong>Source Code:</strong> <a
+            href="https://github.com/nodejs/node/blob/v16.14.2/lib/https.js">lib/https.js</a></p>
+        <p>HTTPS is the HTTP protocol over TLS/SSL. In Node.js this is implemented as a
+          separate module.</p>
+        <section>
+          <h3>Class: <code>https.Agent</code><span><a class="mark" href="#class-httpsagent"
+                id="class-httpsagent">#</a></span><a aria-hidden="true" class="legacy" id="https_class_https_agent"></a>
+          </h3>
+          <div class="api_metadata">
+            <details class="changelog">
+              <summary>History</summary>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Version</th>
+                    <th>Changes</th>
+                  </tr>
+                  <tr>
+                    <td>v5.3.0</td>
+                    <td>
+                      <p>support <code>0</code> <code>maxCachedSessions</code> to disable TLS session caching.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v2.5.0</td>
+                    <td>
+                      <p>parameter <code>maxCachedSessions</code> added to <code>options</code> for TLS sessions reuse.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v0.4.5</td>
+                    <td>
+                      <p><span>Added in: v0.4.5</span></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </details>
+          </div>
+          <p>An <a href="#class-httpsagent"><code>Agent</code></a> object for HTTPS similar to <a
+              href="http.html#class-httpagent"><code>http.Agent</code></a>. See
+            <a href="#httpsrequestoptions-callback"><code>https.request()</code></a> for more information.</p>
+          <h4><code>new Agent([options])</code><span><a class="mark" href="#new-agentoptions"
+                id="new-agentoptions">#</a></span><a aria-hidden="true" class="legacy" id="https_new_agent_options"></a>
+          </h4>
+          <div class="api_metadata">
+            <details class="changelog">
+              <summary>History</summary>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Version</th>
+                    <th>Changes</th>
+                  </tr>
+                  <tr>
+                    <td>v12.5.0</td>
+                    <td>
+                      <p>do not automatically set servername if the target host was specified using an IP address.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </details>
+          </div>
+          <ul>
+            <li><code>options</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"
+                class="type">&#x3C;Object></a> Set of configurable options to set on the agent.
+              Can have the same fields as for <a href="http.html#new-agentoptions"><code>http.Agent(options)</code></a>,
+              and
+              <ul>
+                <li>
+                  <p><code>maxCachedSessions</code> <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type"
+                      class="type">&#x3C;number></a> maximum number of TLS cached sessions.
+                    Use <code>0</code> to disable TLS session caching. <strong>Default:</strong> <code>100</code>.</p>
+                </li>
+                <li>
+                  <p><code>servername</code> <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type"
+                      class="type">&#x3C;string></a> the value of
+                    <a href="https://en.wikipedia.org/wiki/Server_Name_Indication">Server Name Indication extension</a>
+                    to be sent to the server. Use
+                    empty string <code>''</code> to disable sending the extension.
+                    <strong>Default:</strong> host name of the target server, unless the target server
+                    is specified using an IP address, in which case the default is <code>''</code> (no
+                    extension).</p>
+                  <p>See <a href="tls.html#session-resumption"><code>Session Resumption</code></a> for information about
+                    TLS session reuse.</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <h5>Event: <code>'keylog'</code><span><a class="mark" href="#event-keylog" id="event-keylog">#</a></span><a
+              aria-hidden="true" class="legacy" id="https_event_keylog"></a></h5>
+          <div class="api_metadata">
+            <span>Added in: v13.2.0, v12.16.0</span>
+          </div>
+          <ul>
+            <li><code>line</code> <a href="buffer.html#class-buffer" class="type">&#x3C;Buffer></a> Line of ASCII text,
+              in NSS <code>SSLKEYLOGFILE</code> format.</li>
+            <li><code>tlsSocket</code> <a href="tls.html#class-tlstlssocket" class="type">&#x3C;tls.TLSSocket></a> The
+              <code>tls.TLSSocket</code> instance on which it was
+              generated.</li>
+          </ul>
+          <p>The <code>keylog</code> event is emitted when key material is generated or received by a
+            connection managed by this agent (typically before handshake has completed, but
+            not necessarily). This keying material can be stored for debugging, as it
+            allows captured TLS traffic to be decrypted. It may be emitted multiple times
+            for each socket.</p>
+          <p>A typical use case is to append received lines to a common text file, which is
+            later used by software (such as Wireshark) to decrypt the traffic:</p>
+          <pre><code class="language-js"><span class="hljs-comment">// ...</span>
+https.<span class="hljs-property">globalAgent</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'keylog'</span>, <span class="hljs-function">(<span class="hljs-params">line, tlsSocket</span>) =></span> {
+  fs.<span class="hljs-title function_">appendFileSync</span>(<span class="hljs-string">'/tmp/ssl-keys.log'</span>, line, { <span class="hljs-attr">mode</span>: <span class="hljs-number">0o600</span> });
+});</code></pre>
+        </section>
+        <section>
+          <h3>Class: <code>https.Server</code><span><a class="mark" href="#class-httpsserver"
+                id="class-httpsserver">#</a></span><a aria-hidden="true" class="legacy"
+              id="https_class_https_server"></a></h3>
+          <div class="api_metadata">
+            <span>Added in: v0.3.4</span>
+          </div>
+          <ul>
+            <li>Extends: <a href="tls.html#class-tlsserver" class="type">&#x3C;tls.Server></a></li>
+          </ul>
+          <p>See <a href="http.html#class-httpserver"><code>http.Server</code></a> for more information.</p>
+          <h4><code>server.close([callback])</code><span><a class="mark" href="#serverclosecallback"
+                id="serverclosecallback">#</a></span><a aria-hidden="true" class="legacy"
+              id="https_server_close_callback"></a></h4>
+          <div class="api_metadata">
+            <span>Added in: v0.1.90</span>
+          </div>
+          <ul>
+            <li><code>callback</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function"
+                class="type">&#x3C;Function></a></li>
+            <li>Returns: <a href="https.html#class-httpsserver" class="type">&#x3C;https.Server></a></li>
+          </ul>
+          <p>See <a href="http.html#serverclosecallback"><code>server.close()</code></a> from the HTTP module for
+            details.</p>
+          <h4><code>server.headersTimeout</code><span><a class="mark" href="#serverheaderstimeout"
+                id="serverheaderstimeout">#</a></span><a aria-hidden="true" class="legacy"
+              id="https_server_headerstimeout"></a></h4>
+          <div class="api_metadata">
+            <span>Added in: v11.3.0</span>
+          </div>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type"
+                class="type">&#x3C;number></a> <strong>Default:</strong> <code>60000</code></li>
+          </ul>
+          <p>See <a href="http.html#serverheaderstimeout"><code>http.Server#headersTimeout</code></a>.</p>
+          <h4><code>server.listen()</code><span><a class="mark" href="#serverlisten" id="serverlisten">#</a></span><a
+              aria-hidden="true" class="legacy" id="https_server_listen"></a></h4>
+          <p>Starts the HTTPS server listening for encrypted connections.
+            This method is identical to <a href="net.html#serverlisten"><code>server.listen()</code></a> from <a
+              href="net.html#class-netserver"><code>net.Server</code></a>.</p>
+          <h4><code>server.maxHeadersCount</code><span><a class="mark" href="#servermaxheaderscount"
+                id="servermaxheaderscount">#</a></span><a aria-hidden="true" class="legacy"
+              id="https_server_maxheaderscount"></a></h4>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type"
+                class="type">&#x3C;number></a> <strong>Default:</strong> <code>2000</code></li>
+          </ul>
+          <p>See <a href="http.html#servermaxheaderscount"><code>http.Server#maxHeadersCount</code></a>.</p>
+          <h4><code>server.requestTimeout</code><span><a class="mark" href="#serverrequesttimeout"
+                id="serverrequesttimeout">#</a></span><a aria-hidden="true" class="legacy"
+              id="https_server_requesttimeout"></a></h4>
+          <div class="api_metadata">
+            <span>Added in: v14.11.0</span>
+          </div>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type"
+                class="type">&#x3C;number></a> <strong>Default:</strong> <code>0</code></li>
+          </ul>
+          <p>See <a href="http.html#serverrequesttimeout"><code>http.Server#requestTimeout</code></a>.</p>
+          <h4><code>server.setTimeout([msecs][, callback])</code><span><a class="mark"
+                href="#serversettimeoutmsecs-callback" id="serversettimeoutmsecs-callback">#</a></span><a
+              aria-hidden="true" class="legacy" id="https_server_settimeout_msecs_callback"></a></h4>
+          <div class="api_metadata">
+            <span>Added in: v0.11.2</span>
+          </div>
+          <ul>
+            <li><code>msecs</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type"
+                class="type">&#x3C;number></a> <strong>Default:</strong> <code>120000</code> (2 minutes)</li>
+            <li><code>callback</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function"
+                class="type">&#x3C;Function></a></li>
+            <li>Returns: <a href="https.html#class-httpsserver" class="type">&#x3C;https.Server></a></li>
+          </ul>
+          <p>See <a href="http.html#serversettimeoutmsecs-callback"><code>http.Server#setTimeout()</code></a>.</p>
+          <h4><code>server.timeout</code><span><a class="mark" href="#servertimeout" id="servertimeout">#</a></span><a
+              aria-hidden="true" class="legacy" id="https_server_timeout"></a></h4>
+          <div class="api_metadata">
+            <details class="changelog">
+              <summary>History</summary>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Version</th>
+                    <th>Changes</th>
+                  </tr>
+                  <tr>
+                    <td>v13.0.0</td>
+                    <td>
+                      <p>The default timeout changed from 120s to 0 (no timeout).</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v0.11.2</td>
+                    <td>
+                      <p><span>Added in: v0.11.2</span></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </details>
+          </div>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type"
+                class="type">&#x3C;number></a> <strong>Default:</strong> 0 (no timeout)</li>
+          </ul>
+          <p>See <a href="http.html#servertimeout"><code>http.Server#timeout</code></a>.</p>
+          <h4><code>server.keepAliveTimeout</code><span><a class="mark" href="#serverkeepalivetimeout"
+                id="serverkeepalivetimeout">#</a></span><a aria-hidden="true" class="legacy"
+              id="https_server_keepalivetimeout"></a></h4>
+          <div class="api_metadata">
+            <span>Added in: v8.0.0</span>
+          </div>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type"
+                class="type">&#x3C;number></a> <strong>Default:</strong> <code>5000</code> (5 seconds)</li>
+          </ul>
+          <p>See <a href="http.html#serverkeepalivetimeout"><code>http.Server#keepAliveTimeout</code></a>.</p>
+        </section>
+        <section>
+          <h3><code>https.createServer([options][, requestListener])</code><span><a class="mark"
+                href="#httpscreateserveroptions-requestlistener"
+                id="httpscreateserveroptions-requestlistener">#</a></span><a aria-hidden="true" class="legacy"
+              id="https_https_createserver_options_requestlistener"></a></h3>
+          <div class="api_metadata">
+            <span>Added in: v0.3.4</span>
+          </div>
+          <ul>
+            <li><code>options</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"
+                class="type">&#x3C;Object></a> Accepts <code>options</code> from <a
+                href="tls.html#tlscreateserveroptions-secureconnectionlistener"><code>tls.createServer()</code></a>,
+              <a href="tls.html#tlscreatesecurecontextoptions"><code>tls.createSecureContext()</code></a> and <a
+                href="http.html#httpcreateserveroptions-requestlistener"><code>http.createServer()</code></a>.</li>
+            <li><code>requestListener</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function"
+                class="type">&#x3C;Function></a> A listener to be added to the <code>'request'</code> event.</li>
+            <li>Returns: <a href="https.html#class-httpsserver" class="type">&#x3C;https.Server></a></li>
+          </ul>
+          <pre><code class="language-js"><span class="hljs-comment">// curl -k https://localhost:8000/</span>
+<span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 
 <span class="hljs-keyword">const</span> options = {
-  <span class="hljs-attr">key</span>: fs.readFileSync(<span class="hljs-string">&#x27;test/fixtures/keys/agent2-key.pem&#x27;</span>),
-  <span class="hljs-attr">cert</span>: fs.readFileSync(<span class="hljs-string">&#x27;test/fixtures/keys/agent2-cert.pem&#x27;</span>)
+  <span class="hljs-attr">key</span>: fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">'test/fixtures/keys/agent2-key.pem'</span>),
+  <span class="hljs-attr">cert</span>: fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">'test/fixtures/keys/agent2-cert.pem'</span>)
 };
 
-https.createServer(options, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
-  res.writeHead(<span class="hljs-number">200</span>);
-  res.end(<span class="hljs-string">&#x27;hello world\n&#x27;</span>);
-}).listen(<span class="hljs-number">8000</span>);
-</div></code></pre>
-<p>Or</p>
-<pre><code class="language-js"><div><span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;https&#x27;</span>);
-<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
+https.<span class="hljs-title function_">createServer</span>(options, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">200</span>);
+  res.<span class="hljs-title function_">end</span>(<span class="hljs-string">'hello world\n'</span>);
+}).<span class="hljs-title function_">listen</span>(<span class="hljs-number">8000</span>);</code></pre>
+          <p>Or</p>
+          <pre><code class="language-js"><span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 
 <span class="hljs-keyword">const</span> options = {
-  <span class="hljs-attr">pfx</span>: fs.readFileSync(<span class="hljs-string">&#x27;test/fixtures/test_cert.pfx&#x27;</span>),
-  <span class="hljs-attr">passphrase</span>: <span class="hljs-string">&#x27;sample&#x27;</span>
+  <span class="hljs-attr">pfx</span>: fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">'test/fixtures/test_cert.pfx'</span>),
+  <span class="hljs-attr">passphrase</span>: <span class="hljs-string">'sample'</span>
 };
 
-https.createServer(options, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
-  res.writeHead(<span class="hljs-number">200</span>);
-  res.end(<span class="hljs-string">&#x27;hello world\n&#x27;</span>);
-}).listen(<span class="hljs-number">8000</span>);
-</div></code></pre>
-<h2 id="httpsgetoptions-callback"><code>https.get(options[, callback])</code></h2>
-<h2 id="httpsgeturl-options"><code>https.get(url[, options][, callback])</code></h2>
-<!-- YAML
-added: v0.3.6
-changes:
-  - version: v10.9.0
-    pr-url: https://github.com/nodejs/node/pull/21616
-    description: The `url` parameter can now be passed along with a separate
-                 `options` object.
-  - version: v7.5.0
-    pr-url: https://github.com/nodejs/node/pull/10638
-    description: The `options` parameter can be a WHATWG `URL` object.
--->
-<ul>
-<li><code>url</code> {string | URL}</li>
-<li><code>options</code> {Object | string | URL} Accepts the same <code>options</code> as
-<a href="#httpsrequestoptions-callback"><code>https.request()</code></a>, with the <code>method</code> always set to <code>GET</code>.</li>
-<li><code>callback</code> {Function}</li>
-</ul>
-<p>Like <a href="http.md#httpgetoptions-callback"><code>http.get()</code></a> but for HTTPS.</p>
-<p><code>options</code> can be an object, a string, or a <a href="url.md#the-whatwg-url-api"><code>URL</code></a> object. If <code>options</code> is a
-string, it is automatically parsed with <a href="url.md#new-urlinput-base"><code>new URL()</code></a>. If it is a <a href="url.md#the-whatwg-url-api"><code>URL</code></a>
-object, it will be automatically converted to an ordinary <code>options</code> object.</p>
-<pre><code class="language-js"><div><span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;https&#x27;</span>);
+https.<span class="hljs-title function_">createServer</span>(options, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">200</span>);
+  res.<span class="hljs-title function_">end</span>(<span class="hljs-string">'hello world\n'</span>);
+}).<span class="hljs-title function_">listen</span>(<span class="hljs-number">8000</span>);</code></pre>
+        </section>
+        <section>
+          <h3><code>https.get(options[, callback])</code><span><a class="mark" href="#httpsgetoptions-callback"
+                id="httpsgetoptions-callback">#</a></span><a aria-hidden="true" class="legacy"
+              id="https_https_get_options_callback"></a></h3>
+        </section>
+        <section>
+          <h3><code>https.get(url[, options][, callback])</code><span><a class="mark"
+                href="#httpsgeturl-options-callback" id="httpsgeturl-options-callback">#</a></span><a aria-hidden="true"
+              class="legacy" id="https_https_get_url_options_callback"></a></h3>
+          <div class="api_metadata">
+            <details class="changelog">
+              <summary>History</summary>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Version</th>
+                    <th>Changes</th>
+                  </tr>
+                  <tr>
+                    <td>v10.9.0</td>
+                    <td>
+                      <p>The <code>url</code> parameter can now be passed along with a separate <code>options</code>
+                        object.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v7.5.0</td>
+                    <td>
+                      <p>The <code>options</code> parameter can be a WHATWG <code>URL</code> object.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v0.3.6</td>
+                    <td>
+                      <p><span>Added in: v0.3.6</span></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </details>
+          </div>
+          <ul>
+            <li><code>url</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type"
+                class="type">&#x3C;string></a> | <a href="url.html#the-whatwg-url-api" class="type">&#x3C;URL></a></li>
+            <li><code>options</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"
+                class="type">&#x3C;Object></a> | <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type"
+                class="type">&#x3C;string></a> | <a href="url.html#the-whatwg-url-api" class="type">&#x3C;URL></a>
+              Accepts the same <code>options</code> as
+              <a href="#httpsrequestoptions-callback"><code>https.request()</code></a>, with the <code>method</code>
+              always set to <code>GET</code>.</li>
+            <li><code>callback</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function"
+                class="type">&#x3C;Function></a></li>
+          </ul>
+          <p>Like <a href="http.html#httpgetoptions-callback"><code>http.get()</code></a> but for HTTPS.</p>
+          <p><code>options</code> can be an object, a string, or a <a
+              href="url.html#the-whatwg-url-api"><code>URL</code></a> object. If <code>options</code> is a
+            string, it is automatically parsed with <a href="url.html#new-urlinput-base"><code>new URL()</code></a>. If
+            it is a <a href="url.html#the-whatwg-url-api"><code>URL</code></a>
+            object, it will be automatically converted to an ordinary <code>options</code> object.</p>
+          <pre><code class="language-js"><span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
 
-https.get(<span class="hljs-string">&#x27;https://encrypted.google.com/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;statusCode:&#x27;</span>, res.statusCode);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;headers:&#x27;</span>, res.headers);
+https.<span class="hljs-title function_">get</span>(<span class="hljs-string">'https://encrypted.google.com/'</span>, <span class="hljs-function">(<span class="hljs-params">res</span>) =></span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'statusCode:'</span>, res.<span class="hljs-property">statusCode</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'headers:'</span>, res.<span class="hljs-property">headers</span>);
 
-  res.on(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> {
-    process.stdout.write(d);
+  res.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-function">(<span class="hljs-params">d</span>) =></span> {
+    process.<span class="hljs-property">stdout</span>.<span class="hljs-title function_">write</span>(d);
   });
 
-}).on(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.error(e);
-});
-</div></code></pre>
-<h2 id="httpsglobalagent"><code>https.globalAgent</code></h2>
-<!-- YAML
-added: v0.5.9
--->
-<p>Global instance of <a href="#class-httpsagent"><code>https.Agent</code></a> for all HTTPS client requests.</p>
-<h2 id="httpsrequestoptions-callback"><code>https.request(options[, callback])</code></h2>
-<h2 id="httpsrequesturl-options"><code>https.request(url[, options][, callback])</code></h2>
-<!-- YAML
-added: v0.3.6
-changes:
-  - version:
-      - v16.7.0
-      - v14.18.0
-    pr-url: https://github.com/nodejs/node/pull/39310
-    description: When using a `URL` object parsed username
-                 and password will now be properly URI decoded.
-  - version:
-      - v14.1.0
-      - v13.14.0
-    pr-url: https://github.com/nodejs/node/pull/32786
-    description: The `highWaterMark` option is accepted now.
-  - version: v10.9.0
-    pr-url: https://github.com/nodejs/node/pull/21616
-    description: The `url` parameter can now be passed along with a separate
-                 `options` object.
-  - version: v9.3.0
-    pr-url: https://github.com/nodejs/node/pull/14903
-    description: The `options` parameter can now include `clientCertEngine`.
-  - version: v7.5.0
-    pr-url: https://github.com/nodejs/node/pull/10638
-    description: The `options` parameter can be a WHATWG `URL` object.
--->
-<ul>
-<li><code>url</code> {string | URL}</li>
-<li><code>options</code> {Object | string | URL} Accepts all <code>options</code> from
-<a href="http.md#httprequestoptions-callback"><code>http.request()</code></a>, with some differences in default values:
-<ul>
-<li><code>protocol</code> <strong>Default:</strong> <code>'https:'</code></li>
-<li><code>port</code> <strong>Default:</strong> <code>443</code></li>
-<li><code>agent</code> <strong>Default:</strong> <code>https.globalAgent</code></li>
-</ul>
-</li>
-<li><code>callback</code> {Function}</li>
-<li>Returns: {http.ClientRequest}</li>
-</ul>
-<p>Makes a request to a secure web server.</p>
-<p>The following additional <code>options</code> from <a href="tls.md#tlsconnectoptions-callback"><code>tls.connect()</code></a> are also accepted:
-<code>ca</code>, <code>cert</code>, <code>ciphers</code>, <code>clientCertEngine</code>, <code>crl</code>, <code>dhparam</code>, <code>ecdhCurve</code>,
-<code>honorCipherOrder</code>, <code>key</code>, <code>passphrase</code>, <code>pfx</code>, <code>rejectUnauthorized</code>,
-<code>secureOptions</code>, <code>secureProtocol</code>, <code>servername</code>, <code>sessionIdContext</code>,
-<code>highWaterMark</code>.</p>
-<p><code>options</code> can be an object, a string, or a <a href="url.md#the-whatwg-url-api"><code>URL</code></a> object. If <code>options</code> is a
-string, it is automatically parsed with <a href="url.md#new-urlinput-base"><code>new URL()</code></a>. If it is a <a href="url.md#the-whatwg-url-api"><code>URL</code></a>
-object, it will be automatically converted to an ordinary <code>options</code> object.</p>
-<p><code>https.request()</code> returns an instance of the <a href="http.md#class-httpclientrequest"><code>http.ClientRequest</code></a>
-class. The <code>ClientRequest</code> instance is a writable stream. If one needs to
-upload a file with a POST request, then write to the <code>ClientRequest</code> object.</p>
-<pre><code class="language-js"><div><span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;https&#x27;</span>);
+}).<span class="hljs-title function_">on</span>(<span class="hljs-string">'error'</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =></span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(e);
+});</code></pre>
+        </section>
+        <section>
+          <h3><code>https.globalAgent</code><span><a class="mark" href="#httpsglobalagent"
+                id="httpsglobalagent">#</a></span><a aria-hidden="true" class="legacy" id="https_https_globalagent"></a>
+          </h3>
+          <div class="api_metadata">
+            <span>Added in: v0.5.9</span>
+          </div>
+          <p>Global instance of <a href="#class-httpsagent"><code>https.Agent</code></a> for all HTTPS client requests.
+          </p>
+        </section>
+        <section>
+          <h3><code>https.request(options[, callback])</code><span><a class="mark" href="#httpsrequestoptions-callback"
+                id="httpsrequestoptions-callback">#</a></span><a aria-hidden="true" class="legacy"
+              id="https_https_request_options_callback"></a></h3>
+        </section>
+        <section>
+          <h3><code>https.request(url[, options][, callback])</code><span><a class="mark"
+                href="#httpsrequesturl-options-callback" id="httpsrequesturl-options-callback">#</a></span><a
+              aria-hidden="true" class="legacy" id="https_https_request_url_options_callback"></a></h3>
+          <div class="api_metadata">
+            <details class="changelog">
+              <summary>History</summary>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Version</th>
+                    <th>Changes</th>
+                  </tr>
+                  <tr>
+                    <td>v16.7.0</td>
+                    <td>
+                      <p>When using a <code>URL</code> object parsed username and password will now be properly URI
+                        decoded.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v14.1.0, v13.14.0</td>
+                    <td>
+                      <p>The <code>highWaterMark</code> option is accepted now.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v10.9.0</td>
+                    <td>
+                      <p>The <code>url</code> parameter can now be passed along with a separate <code>options</code>
+                        object.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v9.3.0</td>
+                    <td>
+                      <p>The <code>options</code> parameter can now include <code>clientCertEngine</code>.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v7.5.0</td>
+                    <td>
+                      <p>The <code>options</code> parameter can be a WHATWG <code>URL</code> object.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>v0.3.6</td>
+                    <td>
+                      <p><span>Added in: v0.3.6</span></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </details>
+          </div>
+          <ul>
+            <li><code>url</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type"
+                class="type">&#x3C;string></a> | <a href="url.html#the-whatwg-url-api" class="type">&#x3C;URL></a></li>
+            <li><code>options</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"
+                class="type">&#x3C;Object></a> | <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type"
+                class="type">&#x3C;string></a> | <a href="url.html#the-whatwg-url-api" class="type">&#x3C;URL></a>
+              Accepts all <code>options</code> from
+              <a href="http.html#httprequestoptions-callback"><code>http.request()</code></a>, with some differences in
+              default values:
+              <ul>
+                <li><code>protocol</code> <strong>Default:</strong> <code>'https:'</code></li>
+                <li><code>port</code> <strong>Default:</strong> <code>443</code></li>
+                <li><code>agent</code> <strong>Default:</strong> <code>https.globalAgent</code></li>
+              </ul>
+            </li>
+            <li><code>callback</code> <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function"
+                class="type">&#x3C;Function></a></li>
+            <li>Returns: <a href="http.html#class-httpclientrequest" class="type">&#x3C;http.ClientRequest></a></li>
+          </ul>
+          <p>Makes a request to a secure web server.</p>
+          <p>The following additional <code>options</code> from <a
+              href="tls.html#tlsconnectoptions-callback"><code>tls.connect()</code></a> are also accepted:
+            <code>ca</code>, <code>cert</code>, <code>ciphers</code>, <code>clientCertEngine</code>, <code>crl</code>,
+            <code>dhparam</code>, <code>ecdhCurve</code>,
+            <code>honorCipherOrder</code>, <code>key</code>, <code>passphrase</code>, <code>pfx</code>,
+            <code>rejectUnauthorized</code>,
+            <code>secureOptions</code>, <code>secureProtocol</code>, <code>servername</code>,
+            <code>sessionIdContext</code>,
+            <code>highWaterMark</code>.</p>
+          <p><code>options</code> can be an object, a string, or a <a
+              href="url.html#the-whatwg-url-api"><code>URL</code></a> object. If <code>options</code> is a
+            string, it is automatically parsed with <a href="url.html#new-urlinput-base"><code>new URL()</code></a>. If
+            it is a <a href="url.html#the-whatwg-url-api"><code>URL</code></a>
+            object, it will be automatically converted to an ordinary <code>options</code> object.</p>
+          <p><code>https.request()</code> returns an instance of the <a
+              href="http.html#class-httpclientrequest"><code>http.ClientRequest</code></a>
+            class. The <code>ClientRequest</code> instance is a writable stream. If one needs to
+            upload a file with a POST request, then write to the <code>ClientRequest</code> object.</p>
+          <pre><code class="language-js"><span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
 
 <span class="hljs-keyword">const</span> options = {
-  <span class="hljs-attr">hostname</span>: <span class="hljs-string">&#x27;encrypted.google.com&#x27;</span>,
+  <span class="hljs-attr">hostname</span>: <span class="hljs-string">'encrypted.google.com'</span>,
   <span class="hljs-attr">port</span>: <span class="hljs-number">443</span>,
-  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,
-  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>
+  <span class="hljs-attr">path</span>: <span class="hljs-string">'/'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>
 };
 
-<span class="hljs-keyword">const</span> req = https.request(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;statusCode:&#x27;</span>, res.statusCode);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;headers:&#x27;</span>, res.headers);
+<span class="hljs-keyword">const</span> req = https.<span class="hljs-title function_">request</span>(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =></span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'statusCode:'</span>, res.<span class="hljs-property">statusCode</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'headers:'</span>, res.<span class="hljs-property">headers</span>);
 
-  res.on(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> {
-    process.stdout.write(d);
+  res.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-function">(<span class="hljs-params">d</span>) =></span> {
+    process.<span class="hljs-property">stdout</span>.<span class="hljs-title function_">write</span>(d);
   });
 });
 
-req.on(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.error(e);
+req.<span class="hljs-title function_">on</span>(<span class="hljs-string">'error'</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =></span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(e);
 });
-req.end();
-</div></code></pre>
-<p>Example using options from <a href="tls.md#tlsconnectoptions-callback"><code>tls.connect()</code></a>:</p>
-<pre><code class="language-js"><div><span class="hljs-keyword">const</span> options = {
-  <span class="hljs-attr">hostname</span>: <span class="hljs-string">&#x27;encrypted.google.com&#x27;</span>,
+req.<span class="hljs-title function_">end</span>();</code></pre>
+          <p>Example using options from <a href="tls.html#tlsconnectoptions-callback"><code>tls.connect()</code></a>:
+          </p>
+          <pre><code class="language-js"><span class="hljs-keyword">const</span> options = {
+  <span class="hljs-attr">hostname</span>: <span class="hljs-string">'encrypted.google.com'</span>,
   <span class="hljs-attr">port</span>: <span class="hljs-number">443</span>,
-  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,
-  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,
-  <span class="hljs-attr">key</span>: fs.readFileSync(<span class="hljs-string">&#x27;test/fixtures/keys/agent2-key.pem&#x27;</span>),
-  <span class="hljs-attr">cert</span>: fs.readFileSync(<span class="hljs-string">&#x27;test/fixtures/keys/agent2-cert.pem&#x27;</span>)
+  <span class="hljs-attr">path</span>: <span class="hljs-string">'/'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+  <span class="hljs-attr">key</span>: fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">'test/fixtures/keys/agent2-key.pem'</span>),
+  <span class="hljs-attr">cert</span>: fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">'test/fixtures/keys/agent2-cert.pem'</span>)
 };
-options.agent = <span class="hljs-keyword">new</span> https.Agent(options);
+options.<span class="hljs-property">agent</span> = <span class="hljs-keyword">new</span> https.<span class="hljs-title class_">Agent</span>(options);
 
-<span class="hljs-keyword">const</span> req = https.request(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
+<span class="hljs-keyword">const</span> req = https.<span class="hljs-title function_">request</span>(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =></span> {
   <span class="hljs-comment">// ...</span>
-});
-</div></code></pre>
-<p>Alternatively, opt out of connection pooling by not using an <a href="#class-httpsagent"><code>Agent</code></a>.</p>
-<pre><code class="language-js"><div><span class="hljs-keyword">const</span> options = {
-  <span class="hljs-attr">hostname</span>: <span class="hljs-string">&#x27;encrypted.google.com&#x27;</span>,
+});</code></pre>
+          <p>Alternatively, opt out of connection pooling by not using an <a
+              href="#class-httpsagent"><code>Agent</code></a>.</p>
+          <pre><code class="language-js"><span class="hljs-keyword">const</span> options = {
+  <span class="hljs-attr">hostname</span>: <span class="hljs-string">'encrypted.google.com'</span>,
   <span class="hljs-attr">port</span>: <span class="hljs-number">443</span>,
-  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,
-  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,
-  <span class="hljs-attr">key</span>: fs.readFileSync(<span class="hljs-string">&#x27;test/fixtures/keys/agent2-key.pem&#x27;</span>),
-  <span class="hljs-attr">cert</span>: fs.readFileSync(<span class="hljs-string">&#x27;test/fixtures/keys/agent2-cert.pem&#x27;</span>),
+  <span class="hljs-attr">path</span>: <span class="hljs-string">'/'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+  <span class="hljs-attr">key</span>: fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">'test/fixtures/keys/agent2-key.pem'</span>),
+  <span class="hljs-attr">cert</span>: fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">'test/fixtures/keys/agent2-cert.pem'</span>),
   <span class="hljs-attr">agent</span>: <span class="hljs-literal">false</span>
 };
 
-<span class="hljs-keyword">const</span> req = https.request(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
+<span class="hljs-keyword">const</span> req = https.<span class="hljs-title function_">request</span>(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =></span> {
   <span class="hljs-comment">// ...</span>
-});
-</div></code></pre>
-<p>Example using a <a href="url.md#the-whatwg-url-api"><code>URL</code></a> as <code>options</code>:</p>
-<pre><code class="language-js"><div><span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;https://abc:xyz@example.com&#x27;</span>);
+});</code></pre>
+          <p>Example using a <a href="url.html#the-whatwg-url-api"><code>URL</code></a> as <code>options</code>:</p>
+          <pre><code class="language-js"><span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(<span class="hljs-string">'https://abc:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bac2c3c0fadfc2dbd7cad6df94d9d5d7">[email&#160;protected]</a>'</span>);
 
-<span class="hljs-keyword">const</span> req = https.request(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
+<span class="hljs-keyword">const</span> req = https.<span class="hljs-title function_">request</span>(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =></span> {
   <span class="hljs-comment">// ...</span>
-});
-</div></code></pre>
-<p>Example pinning on certificate fingerprint, or the public key (similar to
-<code>pin-sha256</code>):</p>
-<pre><code class="language-js"><div><span class="hljs-keyword">const</span> tls = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;tls&#x27;</span>);
-<span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;https&#x27;</span>);
-<span class="hljs-keyword">const</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;crypto&#x27;</span>);
+});</code></pre>
+          <p>Example pinning on certificate fingerprint, or the public key (similar to
+            <code>pin-sha256</code>):</p>
+          <pre><code class="language-js"><span class="hljs-keyword">const</span> tls = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tls'</span>);
+<span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
+<span class="hljs-keyword">const</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">'crypto'</span>);
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sha256</span>(<span class="hljs-params">s</span>) </span>{
-  <span class="hljs-keyword">return</span> crypto.createHash(<span class="hljs-string">&#x27;sha256&#x27;</span>).update(s).digest(<span class="hljs-string">&#x27;base64&#x27;</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sha256</span>(<span class="hljs-params">s</span>) {
+  <span class="hljs-keyword">return</span> crypto.<span class="hljs-title function_">createHash</span>(<span class="hljs-string">'sha256'</span>).<span class="hljs-title function_">update</span>(s).<span class="hljs-title function_">digest</span>(<span class="hljs-string">'base64'</span>);
 }
 <span class="hljs-keyword">const</span> options = {
-  <span class="hljs-attr">hostname</span>: <span class="hljs-string">&#x27;github.com&#x27;</span>,
+  <span class="hljs-attr">hostname</span>: <span class="hljs-string">'github.com'</span>,
   <span class="hljs-attr">port</span>: <span class="hljs-number">443</span>,
-  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,
-  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,
-  <span class="hljs-attr">checkServerIdentity</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">host, cert</span>) </span>{
+  <span class="hljs-attr">path</span>: <span class="hljs-string">'/'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+  <span class="hljs-attr">checkServerIdentity</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">host, cert</span>) {
     <span class="hljs-comment">// Make sure the certificate is issued to the host we are connected to</span>
-    <span class="hljs-keyword">const</span> err = tls.checkServerIdentity(host, cert);
+    <span class="hljs-keyword">const</span> err = tls.<span class="hljs-title function_">checkServerIdentity</span>(host, cert);
     <span class="hljs-keyword">if</span> (err) {
       <span class="hljs-keyword">return</span> err;
     }
 
     <span class="hljs-comment">// Pin the public key, similar to HPKP pin-sha25 pinning</span>
-    <span class="hljs-keyword">const</span> pubkey256 = <span class="hljs-string">&#x27;pL1+qb9HTMRZJmuC/bB/ZI9d302BYrrqiVuRyW+DGrU=&#x27;</span>;
-    <span class="hljs-keyword">if</span> (sha256(cert.pubkey) !== pubkey256) {
-      <span class="hljs-keyword">const</span> msg = <span class="hljs-string">&#x27;Certificate verification error: &#x27;</span> +
-        <span class="hljs-string">`The public key of &#x27;<span class="hljs-subst">${cert.subject.CN}</span>&#x27; `</span> +
-        <span class="hljs-string">&#x27;does not match our pinned fingerprint&#x27;</span>;
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(msg);
+    <span class="hljs-keyword">const</span> pubkey256 = <span class="hljs-string">'pL1+qb9HTMRZJmuC/bB/ZI9d302BYrrqiVuRyW+DGrU='</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">sha256</span>(cert.<span class="hljs-property">pubkey</span>) !== pubkey256) {
+      <span class="hljs-keyword">const</span> msg = <span class="hljs-string">'Certificate verification error: '</span> +
+        <span class="hljs-string">`The public key of '<span class="hljs-subst">${cert.subject.CN}</span>' `</span> +
+        <span class="hljs-string">'does not match our pinned fingerprint'</span>;
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(msg);
     }
 
     <span class="hljs-comment">// Pin the exact certificate, rather than the pub key</span>
-    <span class="hljs-keyword">const</span> cert256 = <span class="hljs-string">&#x27;25:FE:39:32:D9:63:8C:8A:FC:A1:9A:29:87:&#x27;</span> +
-      <span class="hljs-string">&#x27;D8:3E:4C:1D:98:DB:71:E4:1A:48:03:98:EA:22:6A:BD:8B:93:16&#x27;</span>;
-    <span class="hljs-keyword">if</span> (cert.fingerprint256 !== cert256) {
-      <span class="hljs-keyword">const</span> msg = <span class="hljs-string">&#x27;Certificate verification error: &#x27;</span> +
-        <span class="hljs-string">`The certificate of &#x27;<span class="hljs-subst">${cert.subject.CN}</span>&#x27; `</span> +
-        <span class="hljs-string">&#x27;does not match our pinned fingerprint&#x27;</span>;
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(msg);
+    <span class="hljs-keyword">const</span> cert256 = <span class="hljs-string">'25:FE:39:32:D9:63:8C:8A:FC:A1:9A:29:87:'</span> +
+      <span class="hljs-string">'D8:3E:4C:1D:98:DB:71:E4:1A:48:03:98:EA:22:6A:BD:8B:93:16'</span>;
+    <span class="hljs-keyword">if</span> (cert.<span class="hljs-property">fingerprint256</span> !== cert256) {
+      <span class="hljs-keyword">const</span> msg = <span class="hljs-string">'Certificate verification error: '</span> +
+        <span class="hljs-string">`The certificate of '<span class="hljs-subst">${cert.subject.CN}</span>' `</span> +
+        <span class="hljs-string">'does not match our pinned fingerprint'</span>;
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(msg);
     }
 
     <span class="hljs-comment">// This loop is informational only.</span>
@@ -431,36 +774,35 @@ options.agent = <span class="hljs-keyword">new</span> https.Agent(options);
     <span class="hljs-comment">// internet, while pinning the public key of the service in sensitive</span>
     <span class="hljs-comment">// environments.</span>
     <span class="hljs-keyword">do</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Subject Common Name:&#x27;</span>, cert.subject.CN);
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;  Certificate SHA256 fingerprint:&#x27;</span>, cert.fingerprint256);
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Subject Common Name:'</span>, cert.<span class="hljs-property">subject</span>.<span class="hljs-property">CN</span>);
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'  Certificate SHA256 fingerprint:'</span>, cert.<span class="hljs-property">fingerprint256</span>);
 
-      hash = crypto.createHash(<span class="hljs-string">&#x27;sha256&#x27;</span>);
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;  Public key ping-sha256:&#x27;</span>, sha256(cert.pubkey));
+      hash = crypto.<span class="hljs-title function_">createHash</span>(<span class="hljs-string">'sha256'</span>);
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'  Public key ping-sha256:'</span>, <span class="hljs-title function_">sha256</span>(cert.<span class="hljs-property">pubkey</span>));
 
-      lastprint256 = cert.fingerprint256;
-      cert = cert.issuerCertificate;
-    } <span class="hljs-keyword">while</span> (cert.fingerprint256 !== lastprint256);
+      lastprint256 = cert.<span class="hljs-property">fingerprint256</span>;
+      cert = cert.<span class="hljs-property">issuerCertificate</span>;
+    } <span class="hljs-keyword">while</span> (cert.<span class="hljs-property">fingerprint256</span> !== lastprint256);
 
   },
 };
 
-options.agent = <span class="hljs-keyword">new</span> https.Agent(options);
-<span class="hljs-keyword">const</span> req = https.request(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;All OK. Server matched our pinned cert or public key&#x27;</span>);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;statusCode:&#x27;</span>, res.statusCode);
+options.<span class="hljs-property">agent</span> = <span class="hljs-keyword">new</span> https.<span class="hljs-title class_">Agent</span>(options);
+<span class="hljs-keyword">const</span> req = https.<span class="hljs-title function_">request</span>(options, <span class="hljs-function">(<span class="hljs-params">res</span>) =></span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'All OK. Server matched our pinned cert or public key'</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'statusCode:'</span>, res.<span class="hljs-property">statusCode</span>);
   <span class="hljs-comment">// Print the HPKP values</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;headers:&#x27;</span>, res.headers[<span class="hljs-string">&#x27;public-key-pins&#x27;</span>]);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'headers:'</span>, res.<span class="hljs-property">headers</span>[<span class="hljs-string">'public-key-pins'</span>]);
 
-  res.on(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> {});
+  res.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-function">(<span class="hljs-params">d</span>) =></span> {});
 });
 
-req.on(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.error(e.message);
+req.<span class="hljs-title function_">on</span>(<span class="hljs-string">'error'</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =></span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(e.<span class="hljs-property">message</span>);
 });
-req.end();
-</div></code></pre>
-<p>Outputs for example:</p>
-<pre><code class="language-text"><div>Subject Common Name: github.com
+req.<span class="hljs-title function_">end</span>();</code></pre>
+          <p>Outputs for example:</p>
+          <pre><code class="language-text">Subject Common Name: github.com
   Certificate SHA256 fingerprint: 25:FE:39:32:D9:63:8C:8A:FC:A1:9A:29:87:D8:3E:4C:1D:98:DB:71:E4:1A:48:03:98:EA:22:6A:BD:8B:93:16
   Public key ping-sha256: pL1+qb9HTMRZJmuC/bB/ZI9d302BYrrqiVuRyW+DGrU=
 Subject Common Name: DigiCert SHA2 Extended Validation Server CA
@@ -471,8 +813,50 @@ Subject Common Name: DigiCert High Assurance EV Root CA
   Public key ping-sha256: WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=
 All OK. Server matched our pinned cert or public key
 statusCode: 200
-headers: max-age=0; pin-sha256=&quot;WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=&quot;; pin-sha256=&quot;RRM1dGqnDFsCJXBTHky16vi1obOlCgFFn/yOhI/y+ho=&quot;; pin-sha256=&quot;k2v657xBsOVe1PQRwOsHsw3bsGT2VzIqz5K+59sNQws=&quot;; pin-sha256=&quot;K87oWBWM9UZfyddvDfoxL+8lpNyoUB2ptGtn0fv6G2Q=&quot;; pin-sha256=&quot;IQBnNBEiFuhj+8x6X8XLgh01V9Ic5/V3IRQLNFFc7v4=&quot;; pin-sha256=&quot;iie1VXtL7HzAMF+/PVPR9xzT80kQxdZeJ+zduCB3uj0=&quot;; pin-sha256=&quot;LvRiGEjRqfzurezaWuj8Wie2gyHMrW5Q06LspMnox7A=&quot;; includeSubDomains
-</div></code></pre>
+headers: max-age=0; pin-sha256="WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18="; pin-sha256="RRM1dGqnDFsCJXBTHky16vi1obOlCgFFn/yOhI/y+ho="; pin-sha256="k2v657xBsOVe1PQRwOsHsw3bsGT2VzIqz5K+59sNQws="; pin-sha256="K87oWBWM9UZfyddvDfoxL+8lpNyoUB2ptGtn0fv6G2Q="; pin-sha256="IQBnNBEiFuhj+8x6X8XLgh01V9Ic5/V3IRQLNFFc7v4="; pin-sha256="iie1VXtL7HzAMF+/PVPR9xzT80kQxdZeJ+zduCB3uj0="; pin-sha256="LvRiGEjRqfzurezaWuj8Wie2gyHMrW5Q06LspMnox7A="; includeSubDomains</code></pre>
+        </section>
+        <!-- API END -->
+      </div>
+    </div>
+  </div>
+  <script data-cfasync="false" src="../js/email-decode.min.js"></script>
+  <script>
+    'use strict'; {
+      const kCustomPreference = 'customDarkTheme';
+      const userSettings = sessionStorage.getItem(kCustomPreference);
+      const themeToggleButton = document.getElementById('theme-toggle-btn');
+      if (userSettings === null && window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        if ('onchange' in mq) {
+          function mqChangeListener(e) {
+            document.body.classList.toggle('dark-mode', e.matches);
+          }
+          mq.addEventListener('change', mqChangeListener);
+          if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', function () {
+              mq.removeEventListener('change', mqChangeListener);
+            }, {
+              once: true
+            });
+          }
+        }
+        if (mq.matches) {
+          document.body.classList.add('dark-mode');
+        }
+      } else if (userSettings === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+      if (themeToggleButton) {
+        themeToggleButton.hidden = false;
+        themeToggleButton.addEventListener('click', function () {
+          sessionStorage.setItem(
+            kCustomPreference,
+            document.body.classList.toggle('dark-mode')
+          );
+        });
+      }
+    }
+  </script>
+</body>
 
-    </body>
-    </html>
+</html>

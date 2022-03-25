@@ -10,6 +10,9 @@ const createWindow = () => {
     title: "NodeDoc",
     icon: "icon.ico",
     //devtools : false,
+    webPreferences:{
+      nodeIntegration : true,
+    }
   })
 
   doc.loadFile('src/html/index.html')
