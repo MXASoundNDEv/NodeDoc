@@ -5,7 +5,7 @@ TO DO
 - [x] Thème(night/Day)
 - [ ] Compressing file
 - [ ] make .exe file
-- [ ] Make copy button for code
+- [ ] Make copy button for code (button is here but not working)
 - [x] CJS / ESM Choice
 
 for start just
