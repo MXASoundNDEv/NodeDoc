@@ -368,11 +368,14 @@ dd + dt.pre {
 
 #apicontent {
   padding-top: 1rem;
+  align-items: center;
+  align-content:flex-start;
+  overflow: hidden;
 }
 
 #apicontent section {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 5000px;
+  /* contain-intrinsic-size: 1px 5000px; */
 }
 
 #apicontent .line {
@@ -856,9 +859,6 @@ kbd {
   a {
     color: inherit;
   }
-  #apicontent {
-    overflow: hidden;
-  }
   .js-flavor-selector {
     display: none;
   }
@@ -880,3 +880,27 @@ kbd {
     background-image: url(../svg/js-flavor-esm.svg);
   }
 }
+
+.copy_btn {
+  position: absolute;
+  right: 2.17%;
+  /* top: 3.5%; */
+  /* width: "54.54px";
+  height: "21.5px"; */
+  border-radius: 0.4rem;
+  background: rgba(0,0,0,.3);
+  color: white;
+  padding: .4rem .5rem;
+}
+/* .copy_btn {
+  background: rgba(0,0,0,.3);
+  border-radius: var(--ifm-global-radius);
+  color: var(--ifm-color-white);
+  opacity: 0;
+  padding: .4rem .5rem;
+  position: absolute;
+  right: calc(var(--ifm-pre-padding)/2);
+  top: calc(var(--ifm-pre-padding)/2);
+  transition: opacity .2s ease-in-out;
+  user-select: none;
+} */

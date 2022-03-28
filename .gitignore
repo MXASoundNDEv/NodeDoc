@@ -1,3 +1,4 @@
 node_modules
 file
-src/js
+test.js
+src/svg/duplicate.svg
