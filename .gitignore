@@ -3,3 +3,5 @@ file
 test.js
 src/svg/duplicate.svg
 src/old
+
+out/

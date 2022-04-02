@@ -110,12 +110,14 @@
             <li>
               <a href="index.html">Index</a>
             </li>
+<!--
             <li>
               <a href="all.html">View on single page</a>
             </li>
             <li>
               <a href="esm.json">View as JSON</a>
             </li>
+-->
             
     
       
@@ -1514,7 +1516,8 @@ encoded variants, throw an <em>Invalid Module Specifier</em> error.</li>
 <li>Otherwise, if <em>target</em> is a non-null Object, then
 <ol>
 <li>If <em>exports</em> contains any index property keys, as defined in ECMA-262
-<a href="https://tc39.es/ecma262/#integer-index">6.1.7 Array Index</a>, throw an <em>Invalid Package Configuration</em> error.</li>
+<a href="https://tc39.es/ecma262/#integer-index">6.1.7 Array Index</a>
+<!--, throw an <em>Invalid Package Configuration</em> error.</li>
 <li>For each property <em>p</em> of <em>target</em>, in object insertion order as,
 <ol>
 <li>If <em>p</em> equals <em>"default"</em> or <em>conditions</em> contains an entry for <em>p</em>,

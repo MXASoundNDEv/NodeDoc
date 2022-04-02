@@ -10,6 +10,7 @@ const createWindow = () => {
     title: "NodeDoc",
     icon: "icon.ico",
     //devtools : false,
+    autoHideMenuBar : true,
     webPreferences:{
       nodeIntegration : true,
     }
