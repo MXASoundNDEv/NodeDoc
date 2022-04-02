@@ -7,12 +7,15 @@ TO DO
 - [x] make .exe file
 - [ ] Make copy button for code (button is here but not working)
 - [x] CJS / ESM Choice
+- [ ] Select language
 
 
 ```bash
+$ npm i
+```
+```bash
 $ npm run package
-$ npm start
 or
-$ npm make
+$ npm start
 ```
 ---------------------
