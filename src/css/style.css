@@ -1,0 +1,65 @@
+.DragBar{
+    width: auto;
+    height: 20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: blue;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+    background: #254053;
+    /* display: block; */
+    /* position: fixed; */
+}
+
+.Background{
+    background-color: azure;
+    height: 150px;
+    width: auto;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -webkit-app-region: drag;
+    background: #1A2933;
+    text-align: center;
+}
+
+a{
+    position: relative;
+    -webkit-app-region: no-drag;
+    background-color: #253a49;
+    color: whitesmoke;
+    border-radius: 6px;
+    padding: 5px 25px;
+}
+
+a:hover{
+    border-color: #FFF;
+    border-style: solid;
+    border-width: 1px;
+}
+
+body {
+    overflow: hidden;
+    color: #FFF;
+}
+
+.close{
+    position: absolute;
+    top: 1px;
+    right: 0px;
+}
+
+/* .reduce{
+    position: absolute;
+    top: 1px;
+    right: 5px;
+} */
+
+.title{
+    margin-left: 5px;
+    margin-top: 50%;
+}
+
+.nodejs{
+    margin-top: 10px;
+    top: 9px;
+}
