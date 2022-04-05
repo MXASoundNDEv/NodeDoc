@@ -1,8 +1,7 @@
+console.log("Script.js loading")
 const electron = require('electron');
 const ipc = electron.ipcRenderer
 
-// const remote = require('electron').remote;
-// const win = remote.getCurrentWindow();
 
 const NodeJs = document.getElementById("NodeJS")
 NodeJs.addEventListener("click",function(){
@@ -14,7 +13,7 @@ quit.addEventListener("click",function(){
     ipc.send("quit")
 })
 
-const reduce = document.getElementById("reduce")
-reduce.addEventListener("click",function(){
-    win.minimize();
+const optn = document.getElementById("option")
+optn.addEventListener("click",function(){
+   window.location.href = "../html/option.html"
 })

@@ -9,7 +9,7 @@ const CreateMyDoc = () => {
     height: 300,
     x: 150,
     y: 300,
-    resizable : false,
+    resizable : true,
     frame : false,
     transparent: true,
     title: "MyDoc",
@@ -59,13 +59,12 @@ app.whenReady().then(() => {
     console.log("quit")
     app.quit()
   })
-  
-  ipc.on("reduce",function(event){
-    console.log("reduce")
-    // app.
+
+  ipc.on("Option",function(event){
+    console.log("option")
+    app.loadFile("src/html/option.html")
   })
   
-
 })
 
 

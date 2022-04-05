@@ -3,12 +3,8 @@
     height: 20px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background-color: blue;
-    -webkit-user-select: none;
     -webkit-app-region: drag;
     background: #254053;
-    /* display: block; */
-    /* position: fixed; */
 }
 
 .Background{
@@ -22,7 +18,7 @@
     text-align: center;
 }
 
-a{
+.docbtn{
     position: relative;
     -webkit-app-region: no-drag;
     background-color: #253a49;
@@ -42,17 +38,27 @@ body {
     color: #FFF;
 }
 
-.close{
+.quit{
     position: absolute;
-    top: 1px;
-    right: 0px;
+    height: max-content;
+    width: 15px;
+    right: 13px;
+    top: 7px;
 }
 
-/* .reduce{
+.option{
     position: absolute;
-    top: 1px;
-    right: 5px;
-} */
+    height: 15px;
+    width: 15px;
+    right: 34px;
+    top: 11px;
+}
+
+.dragbtn:hover{
+    border-color: #FFF;
+    border-style: solid;
+    border-width: 1px;
+}
 
 .title{
     margin-left: 5px;
@@ -62,4 +68,8 @@ body {
 .nodejs{
     margin-top: 10px;
     top: 9px;
+}
+
+.dragbtn{
+-webkit-app-region: no-drag;
 }
